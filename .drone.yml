@@ -3,12 +3,11 @@ type: docker
 name: blog_front  #定义drone中的前端项目名称
 
 steps: # 定义流水线执行步骤，这些步骤将顺序执行
-  - name: install && build # 流水线名称
-    image: node:18.20.3 # 定义创建容器的Docker镜像
+  - name: install_and_build # 流水线名称
+    image: node:latest  # 定义创建容器的Docker镜像
     commands:
-      - npm install -g pnpm
-      - pnpm install
-      - pnpm build
+      - npm install
+      - npm build
 
   - name: scp
     image: appleboy/drone-scp
