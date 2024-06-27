@@ -1,0 +1,31 @@
+{
+  "name": "zhaoxin",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm -F web run dev",
+    "build": "pnpm -F web run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@blog/components": "workspace:^",
+    "@blog/utils": "workspace:^",
+    "vue": "^3.4.29"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.9",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "@vue/tsconfig": "^0.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.1",
+    "vue-tsc": "^2.0.21"
+  }
+}

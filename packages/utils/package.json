@@ -1,0 +1,9 @@
+{
+    "name": "@blog/utils",
+    "private": true,
+    "version": "0.1.0",
+    "description": "local utils package",
+    "author": "ZhaoXin",
+    "license": "MIT",
+    "main": "index.ts"
+}

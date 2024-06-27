@@ -1,0 +1,80 @@
+kind: pipeline
+type: docker
+name: blog_front  #定义drone中的前端项目名称
+
+steps: # 定义流水线执行步骤，这些步骤将顺序执行
+  - name: install && build # 流水线名称
+    image: node:latest # 定义创建容器的Docker镜像
+    commands:
+      - pnpm install
+      - pnpm build
+
+  - name: scp
+    image: appleboy/drone-scp
+    pull: always
+    settings:
+      debug: true
+      source:
+        - dist/
+      target:
+        from_secret: DRONE_DICT
+      host:
+        from_secret: DRONE_HOST
+      username:
+        from_secret: DRONE_NAME
+      port:
+        from_secret: DRONE_PORT
+      password:
+        from_secret: DRONE_PSW
+      when:
+        branch:
+          include:
+            - main
+        event:
+          - push
+          - merge
+
+  - name: ssh-front
+    pull: if-not-exists
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        from_secret: DRONE_HOST
+      port:
+        from_secret: DRONE_PORT
+      username:
+        from_secret: DRONE_NAME
+      password:
+        from_secret: DRONE_PSW
+      script:
+        - nginx -s reload
+
+  - name: notify      # 部署完成，邮件通知
+    pull: if-not-exists # 如果镜像不存在则拉取,免去每次都要重新下载
+    image: drillster/drone-email
+    settings:
+      recipients_only: true # 只发送给指定邮件收件人，不默认发送给流水线创建人
+      host: smtp.163.com      #SMTP服务器 例如 smtp.163.com
+      port: 25   #SMTP服务端口  例如163邮箱端口25
+      subject: "Drone Build Complete!"
+      username:
+        from_secret: SSH_EMAIL_USERNAME
+      password:
+        from_secret: SSH_EMAIL_PSW
+      from:
+        from_secret: SSH_EMAIL_USERNAME
+      recipients: 1369354176@qq.com           #收件人邮箱
+    when: #执行条件
+      status:
+        - success
+        - changed
+        - failure
+
+# 可限制哪些分支可以推送自动CICD
+trigger:
+  branch:
+    include:
+      - main
+  event:
+    include:
+      - push

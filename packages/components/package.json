@@ -1,0 +1,9 @@
+{
+    "name": "@blog/components",
+    "private": true,
+    "version": "0.1.0",
+    "description": "local components package",
+    "author": "ZhaoXin",
+    "license": "MIT",
+    "main": "index.ts"
+}
