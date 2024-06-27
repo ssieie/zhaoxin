@@ -3,12 +3,38 @@ type: docker
 name: blog_front  #定义drone中的前端项目名称
 
 steps: # 定义流水线执行步骤，这些步骤将顺序执行
+  - name: restore-cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache
+        path: /cache
+    settings:
+      restore: true
+      mount:
+        - node_modules
+        - .pnpm-store
+
   - name: install_and_build # 流水线名称
     image: node:18.16-bullseye-slim  # 定义创建容器的Docker镜像
     commands:
       - npm install -g pnpm
       - pnpm install
       - pnpm build
+      - ls -la dist/
+    volumes:
+      - name: cache
+        path: /cache
+
+  - name: rebuild-cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache
+        path: /cache
+    settings:
+      rebuild: true
+      mount:
+        - node_modules
+        - .pnpm-store
 
   - name: scp
     image: appleboy/drone-scp
@@ -71,6 +97,10 @@ steps: # 定义流水线执行步骤，这些步骤将顺序执行
         - changed
         - failure
 
+volumes:
+  - name: cache
+    host:
+      path: /usr/local/blog/cache/web
 # 可限制哪些分支可以推送自动CICD
 trigger:
   branch:
