@@ -14,7 +14,7 @@ steps: # 定义流水线执行步骤，这些步骤将顺序执行
         - node_modules
         - .pnpm-store
 
-  - name: install_and_build # 流水线名称
+  - name: web_install_and_build # 流水线名称
     image: node:18.16-bullseye-slim  # 定义创建容器的Docker镜像
     commands:
       - npm install -g pnpm
@@ -42,7 +42,7 @@ steps: # 定义流水线执行步骤，这些步骤将顺序执行
     settings:
       debug: true
       source:
-        - dist/
+        - build/web/
       target:
         from_secret: DRONE_DICT
       host:
