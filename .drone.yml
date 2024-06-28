@@ -42,7 +42,7 @@ steps: # 定义流水线执行步骤，这些步骤将顺序执行
     settings:
       debug: true
       source:
-        - build/web/
+        - build/web/**/*
       target:
         from_secret: DRONE_DICT
       host:
