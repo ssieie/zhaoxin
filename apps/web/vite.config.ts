@@ -3,6 +3,7 @@ import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import viteCompression from "vite-plugin-compression";
 import VueSetupExtend from "vite-plugin-vue-setup-extend";
+import UnoCSS from "unocss/vite";
 
 const pathResolve = (dir: string) => {
   return resolve(__dirname, dir);
@@ -13,7 +14,12 @@ export default defineConfig((mode: ConfigEnv) => {
   const env = loadEnv(mode.mode, process.cwd()) || {};
   env.VITE_USER_NODE_ENV = process.env.VITE_USER_NODE_ENV || "";
   return {
-    plugins: [vue(), viteCompression(), VueSetupExtend()],
+    plugins: [
+      vue(),
+      viteCompression(),
+      VueSetupExtend(),
+      UnoCSS(),
+    ],
     base: "./",
     resolve: {
       alias: {

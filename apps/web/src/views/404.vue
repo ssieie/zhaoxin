@@ -1,5 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+</script>
 
-<template>404</template>
+<template>
+  <div class="text-center">404</div>
+</template>
 
-<style scoped></style>
+<style scoped lang="sass"></style>
