@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import {inject, Ref} from "vue";
+import {inject} from "vue";
 
-const {
-  updateLocation,
-}: { theme: Ref<string>; updateLocation: () => void } = inject("theme");
+const {updateLocation} = inject<any>("theme");
 
 </script>
 
