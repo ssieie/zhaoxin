@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import { ref, provide, watch } from "vue";
 
-const theme = ref<string>(localStorage.getItem("theme") || "light-theme");
-provide("theme", theme);
+const theme = ref<string>(localStorage.getItem("theme") || "light");
+
+const updateLocation = () => {
+  theme.value = theme.value === "light" ? "dark" : "light";
+};
+
+provide("theme", {
+  theme,
+  updateLocation,
+});
 
 watch(
   () => theme.value,
   (newTheme) => {
-    console.log(newTheme)
     localStorage.setItem("theme", newTheme);
   },
 );
@@ -19,5 +26,4 @@ watch(
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

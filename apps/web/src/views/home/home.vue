@@ -3,8 +3,9 @@ import HomeHeader from "/@/components/HomeHeader/HomeHeader.vue";
 </script>
 
 <template>
-  <HomeHeader />
-  11
+  <div class="bg-white dark:bg-dark switch-animation min-h-dvh">
+    <HomeHeader />
+  </div>
 </template>
 
 <style scoped></style>

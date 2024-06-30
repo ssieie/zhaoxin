@@ -29,6 +29,11 @@ export default defineConfig({
     [/^p-([.\d]+)$/, ([_, num]) => ({ padding: `${num}px` })]
   ],
   theme: {
+    colors: {
+      dark: '#09090b', // 暗色主题的背景色
+      light: '#ffffff', // 亮色主题的背景色
+      primary: '#1E3A8A'
+    },
     breakpoints: {
       xxs: "0px",
       xs: "320px",
@@ -40,7 +45,7 @@ export default defineConfig({
     }
   },
   shortcuts: {
-    "switch-animation": "transition duration-300",
+    "switch-animation": "transition duration-350",
     "bg-base": "bg-[#f0f0f0] dark:bg-[#20202a] switch-animation",
     "card-base": "bg-[#ffffff] dark:bg-[#10101a] switch-animation",
     "text-base": "text-[#20202a] dark:text-[#f0f0f0] switch-animation",
