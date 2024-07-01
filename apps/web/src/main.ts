@@ -4,6 +4,8 @@ import router from "./router";
 import "virtual:uno.css";
 import "@unocss/reset/tailwind.css";
 import "/@/assets/css/style.css";
+import "/@/assets/css/animista.css";
+import "/@/assets/css/custom.sass";
 
 const app = createApp(App);
 

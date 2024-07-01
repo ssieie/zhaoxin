@@ -5,7 +5,7 @@ const { theme } = inject("theme") as any;
 </script>
 
 <template>
-  <div class="absolute bottom-0 left-0 right-0 translate-y-1">
+  <div class="absolute bottom-0 left-0 right-0 translate-y-1 z-2">
     <Transition name="fade">
       <svg
         v-show="theme === 'light'"
@@ -42,7 +42,7 @@ const { theme } = inject("theme") as any;
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.35s ease;
+  transition: opacity 350ms ease;
 }
 
 .fade-enter-from,

@@ -83,7 +83,7 @@ steps: # 定义流水线执行步骤，这些步骤将顺序执行
       recipients_only: true # 只发送给指定邮件收件人，不默认发送给流水线创建人
       host: smtp.qq.com      #SMTP服务器 例如 smtp.qq.com
       port: 465   #SMTP服务端口  例如163邮箱端口465
-      subject: "Drone Build Complete!"
+      subject: "Blog web Build Complete!"
       username:
         from_secret: SSH_EMAIL_USERNAME
       password:
