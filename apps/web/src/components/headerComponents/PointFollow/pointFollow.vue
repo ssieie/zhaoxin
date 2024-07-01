@@ -15,7 +15,7 @@ watch(
 );
 
 onMounted(() => {
-  uhuhuh = new Uhuhuh(430, 230, pointFollowRef.value);
+  uhuhuh = new Uhuhuh(430, 230, pointFollowRef.value!);
   uhuhuh.render();
 });
 

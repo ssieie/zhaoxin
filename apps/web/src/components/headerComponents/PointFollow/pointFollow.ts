@@ -22,19 +22,19 @@ class Uhuhuh {
   private $: CanvasRenderingContext2D | null;
   private readonly wrapW: number;
   private readonly wrapH: number;
-  private radius: number;
-  private radiusPow: number;
-  private pointObj: any[];
-  private canvasRect: DOMRect;
-  private lastRenderTime: number;
-  private fpsInterval: number;
-  private fps: number;
+  private radius!: number;
+  private radiusPow!: number;
+  private pointObj!: any[];
+  private canvasRect!: DOMRect;
+  private lastRenderTime!: number;
+  private fpsInterval!: number;
+  private fps!: number;
   private readonly mouseListenerBind: OmitThisParameter<
     (e: MouseEvent) => void
   >;
   private readonly resizeListenerBind: OmitThisParameter<() => void>;
   private readonly renderFnBind: OmitThisParameter<() => void>;
-  private animationFrameId: number;
+  private animationFrameId!: number;
 
   constructor(w: number, h: number, target: HTMLElement) {
     this.canvasEl = document.createElement("canvas");
@@ -122,6 +122,8 @@ class Uhuhuh {
   renderFn() {
     this.animationFrameId = window.requestAnimationFrame(this.renderFnBind);
 
+    if (!this.$) return
+
     let renderTime = new Date().getTime();
     let elapsed = renderTime - this.lastRenderTime;
 
@@ -164,8 +166,10 @@ class Uhuhuh {
     this.fps = fps;
     this.fpsInterval = 1000 / this.fps;
 
-    this.$.lineWidth = 2.5;
-    this.$.lineCap = "round";
+    if (this.$){
+      this.$.lineWidth = 2.5;
+      this.$.lineCap = "round";
+    }
 
     this.renderFn();
   }
