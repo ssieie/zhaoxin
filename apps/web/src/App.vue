@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, provide, watch } from "vue";
+import MouseStars from "/@/components/MouseStars/mouseStars.vue";
 
 const theme = ref<string>(localStorage.getItem("theme") || "light");
 
@@ -23,6 +24,7 @@ watch(
 <template>
   <div :class="theme">
     <router-view />
+    <MouseStars />
   </div>
 </template>
 
