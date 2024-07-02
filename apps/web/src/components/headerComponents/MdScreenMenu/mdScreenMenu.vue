@@ -1,0 +1,57 @@
+<script setup lang="ts">
+import { menuList } from "/@/hooks/useMenuList/useMenuList.ts";
+import { ref } from "vue";
+
+const menuOpen = ref(false);
+
+const closeMenu = () => {
+  menuOpen.value = false;
+};
+const open = () => {
+  menuOpen.value = true;
+};
+
+defineExpose({
+  open,
+});
+</script>
+
+<template>
+  <Transition name="fade">
+    <div
+      v-if="menuOpen"
+      class="fixed top-0 left-0 right-0 bottom-0 z-3 bg-[rgba(0,0,0,0.5)] dark:bg-[rgba(0,0,0,0.1)]"
+    >
+      <div
+        class="fixed top-0 left-0 right-0 h-auto flex flex-col items-center p-t-30px p-b-20px bg-white dark:bg-#153448 scale-in-ver-top"
+      >
+        <div
+          v-for="(i, idx) in menuList"
+          :key="idx"
+          class="p-6px focus-in-expand color-#000 text-16px font-medium cursor-pointer font-nss dark:color-#d4d4d8 select-none"
+          :style="{
+            '--focus-in-expand-animation-delay': (idx + 1) * 0.12 + 's',
+          }"
+        >
+          {{ i.title }}
+        </div>
+        <button
+          @click="closeMenu"
+          class="i-tabler-x text-26px font-black color-#374151 dark:color-#d1d5db switch-animation m-t-10px"
+        />
+      </div>
+    </div>
+  </Transition>
+</template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 350ms ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

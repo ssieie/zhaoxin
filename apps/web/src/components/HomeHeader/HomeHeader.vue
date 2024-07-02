@@ -7,7 +7,7 @@ import PointFollow from "/src/components/headerComponents/PointFollow/pointFollo
 
 <template>
   <div
-    class="h-400px bg-gradient-to-r from-sky-200 to-sky-100 dark:bg-gradient-to-b dark:from-slate-950 dark:to-slate-800 switch-animation relative overflow-hidden"
+    class="h-300px sm:h-400px bg-gradient-to-r from-sky-200 to-sky-100 dark:bg-gradient-to-b dark:from-slate-950 dark:to-slate-800 switch-animation relative overflow-hidden"
   >
     <NavigationBar />
     <Wave />

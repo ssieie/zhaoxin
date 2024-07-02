@@ -28,10 +28,10 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="max-w-1100px h-300px m-auto pointer-events-none relative z-1">
+  <div class="header-w m-auto pointer-events-none relative z-1 h-230px sm:h-300px">
     <InfoCard />
     <div
-      class="absolute right-0 -bottom-6 w-430px h-230px z-1"
+      class="absolute right-0 -bottom-6 w-430px h-230px z-1 hidden sm:block"
       ref="pointFollowRef"
     ></div>
   </div>

@@ -36,16 +36,16 @@ export default defineConfig({
       primary: '#1E3A8A'
     },
     breakpoints: {
-      xxs: "0px",
-      xs: "320px",
-      sm: "480px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-      xxl: "1600px"
+      'xs': '320px',
+      'sm': "640px",
+      'md': "768px",
+      'lg': "1124px",
+      'xl': "1280px",
+      '2xl': "1536px"
     }
   },
   shortcuts: {
+    "header-w": "max-w-350px sm:max-w-600px md:max-w-800px lg:max-w-1100px",
     "switch-animation": "transition duration-350",
     "bg-base": "bg-[#f0f0f0] dark:bg-[#20202a] switch-animation",
     "text-base": "text-[#20202a] dark:text-[#f0f0f0] switch-animation",

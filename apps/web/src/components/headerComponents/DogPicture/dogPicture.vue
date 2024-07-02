@@ -10,7 +10,7 @@ const dogUri = computed(() => {
 
 <template>
   <div
-    class="max-w-1100px h-300px m-auto pointer-events-none relative z-3 -translate-y-300px"
+    class="header-w h-300px m-auto pointer-events-none relative z-3 -translate-y-300px hidden sm:block"
   >
     <div class="dog-pic w-166px h-200px absolute right-0 bottom-0" :class="dogUri"></div>
   </div>
