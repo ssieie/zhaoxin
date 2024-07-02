@@ -1,0 +1,92 @@
+<script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref } from "vue";
+
+const sleep = (timeout = 2000) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("");
+    }, timeout);
+  });
+};
+
+let typingTimeout: number | null = null;
+let flag = true;
+let currentIndex = 0;
+const displayedText = ref("");
+let fullTextList = [
+  "一名前端开发程序员。",
+  "A Web <Developer /> .",
+  "暂苟活于山城。",
+];
+let fullText = fullTextList[0];
+let fullTextIdx = 0;
+const startTyping = async () => {
+  if (flag && currentIndex === fullText.length) {
+    flag = false;
+    await sleep();
+  }
+  if (!flag && currentIndex === 0) {
+    flag = true;
+    fullTextIdx++;
+    fullText = fullTextList[fullTextIdx % 3];
+  }
+  if (flag) {
+    displayedText.value += fullText.charAt(currentIndex);
+    currentIndex++;
+  } else {
+    currentIndex--;
+    displayedText.value = fullText.slice(0, currentIndex);
+  }
+
+  typingTimeout = window.setTimeout(startTyping, 100);
+};
+
+onMounted(() => {
+  setTimeout(() => {
+    startTyping();
+  }, 1000);
+});
+onBeforeUnmount(() => {
+  clearTimeout(typingTimeout!);
+});
+</script>
+
+<template>
+  <div
+    class="absolute left-0 bottom-0 w-530px h-188px z-2 text-#4b5563 dark:text-#94a3b8"
+  >
+    <div class="font-mono text-24px font-medium tracking-3px fade-in-top">
+      Hi! 👋
+    </div>
+    <div
+      class="font-mono text-22px font-medium tracking-3px fade-in-top"
+      style="--focus-in-expand-animation-delay: 0.2s"
+    >
+      I'm 🐂🐎
+    </div>
+    <div
+      class="font-mono text-20px font-medium tracking-3px fade-in-top h-30px"
+      style="--focus-in-expand-animation-delay: 0.4s"
+    >
+      {{ displayedText }}<span class="blink-2 text-#0a0a0a">|</span>
+    </div>
+    <div
+      class="text-18px font-medium tracking-3px fade-in-top"
+      style="--focus-in-expand-animation-delay: 0.6s"
+    >
+      浅学
+      <span
+        class="font-serif font-bold bg-clip-text text-transparent bg-gradient-to-r from-#330867 to-#30cfd0 dark:from-#fef9d7 dark:to-#d299c2"
+        >JavaScript</span
+      >
+      、
+      <span
+        class="font-serif font-bold bg-clip-text text-transparent bg-gradient-to-r from-#009efd to-#2af598"
+        >Rust</span
+      >
+      .
+    </div>
+  </div>
+</template>
+
+<style scoped></style>

@@ -14,9 +14,9 @@ export default defineConfig({
     presetWebFonts({
       provider: "google", // default provider
       fonts: {
-        playwrite: ["Playwrite IT Moderna"],
+        playwrite: ["Dancing Script"],
         msz: ["Ma Shan Zheng"],
-        zmx: ["Zhi Mang Xing"]
+        nss: ["Noto Serif SC"]
       }
     }),
     presetAttributify({

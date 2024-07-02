@@ -31,17 +31,17 @@ const toGitPage = () => {
   <div class="h-48px"></div>
   <div class="flex justify-between items-center max-w-1100px m-auto">
     <div class="flex items-center">
-      <div class="text-24px font-bold m-r-70px cursor-pointer select-none">
+      <div class="text-4xl font-bold m-r-60px cursor-pointer select-none">
         <span
-          class="switch-animation bg-clip-text text-transparent bg-gradient-to-r from-#4433FF to-blue-500 font-playwrite dark:from-sky-200 dark:to-sky-600 focus-in-expand"
+          class="switch-animation bg-clip-text text-transparent bg-gradient-to-r from-#1d4ed8 to-#60a5fa font-playwrite dark:from-sky-200 dark:to-sky-600 focus-in-expand"
         >
-          <span class="tracking-4px">Zhao</span> Xin
+          Zhao Xin
         </span>
       </div>
       <div
         v-for="(i, idx) in menuList"
         :key="idx"
-        class="focus-in-expand color-#0A0C10 text-20px cursor-pointer m-r-34px font-zmx dark:color-#d4d4d8 relative underline-animation-target select-none"
+        class="self-end focus-in-expand color-#000 text-16px font-medium cursor-pointer m-r-30px font-nss dark:color-#d4d4d8 relative underline-animation-target select-none"
         :style="{
           '--focus-in-expand-animation-delay': (idx + 1) * 0.12 + 's',
         }"
