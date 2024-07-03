@@ -124,7 +124,7 @@ class Uhuhuh {
 
     if (!this.$) return
 
-    let renderTime = new Date().getTime();
+    let renderTime = +new Date();
     let elapsed = renderTime - this.lastRenderTime;
 
     if (elapsed > this.fpsInterval) {
@@ -162,7 +162,7 @@ class Uhuhuh {
   }
 
   render(fps = 60) {
-    this.lastRenderTime = new Date().getTime();
+    this.lastRenderTime = +new Date();
     this.fps = fps;
     this.fpsInterval = 1000 / this.fps;
 
