@@ -16,7 +16,7 @@ const displayedText = ref("");
 let fullTextList = [
   "一名前端开发程序员。",
   "A Web <Developer /> .",
-  "暂苟活于山城。",
+  "目前苟活于山城。",
 ];
 let fullText = fullTextList[0];
 let fullTextIdx = 0;
@@ -76,12 +76,12 @@ onBeforeUnmount(() => {
     >
       浅学
       <span
-        class="font-serif font-bold bg-clip-text text-transparent bg-gradient-to-r from-#330867 to-#30cfd0 dark:from-#fef9d7 dark:to-#d299c2"
+        class="font-nss font-bold bg-clip-text text-transparent bg-gradient-to-r from-#330867 to-#30cfd0 dark:from-#fef9d7 dark:to-#d299c2"
         >JavaScript</span
       >
       、
       <span
-        class="font-serif font-bold bg-clip-text text-transparent bg-gradient-to-r from-#009efd to-#2af598"
+        class="font-nss font-bold bg-clip-text text-transparent bg-gradient-to-r from-#009efd to-#2af598"
         >Rust</span
       >
       .
