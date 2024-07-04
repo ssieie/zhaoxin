@@ -13,7 +13,7 @@ const ob = new IntersectionObserver((entries)=>{
     ob.unobserve(article)
   })
 },{
-  threshold:1
+  threshold: 0.5
 })
 
 onMounted(()=>{
@@ -27,7 +27,7 @@ onMounted(()=>{
 <template>
   <div v-for="(i,idx) in 10" :ref="(e:any)=>{
     if(e) articleRefs[idx] = e
-  }" class="m-t-40px select-none cursor-pointer opacity-0">
+  }" class="m-b-40px select-none cursor-pointer opacity-0">
     <p class="inline-block text-18px font-bold title-text-base m-b-10px relative underline-animation-target">
       <span>标题 - {{i}}</span>
       <span class="underline-animation underline-base"></span>

@@ -5,9 +5,9 @@ import PopularArticles from "/@/components/BodyWrapper/components/PopularArticle
 </script>
 
 <template>
-  <div class="flex gap-18px m-auto header-w m-t-18px flex-wrap md:flex-nowrap">
-    <ArticleList class="basis-1/1 md:basis-3/4" />
-    <div class="basis-1/1 md:basis-1/4 flex gap-18px flex-col">
+  <div class="flex gap-20px md:gap-80px m-auto header-w m-t-18px flex-wrap md:flex-nowrap">
+    <ArticleList class="basis-1/1 md:basis-7/10" />
+    <div class="basis-1/1 md:basis-3/10 flex gap-18px flex-col">
       <CategoryCard />
       <PopularArticles />
     </div>

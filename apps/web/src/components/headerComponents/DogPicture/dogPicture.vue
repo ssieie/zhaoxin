@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { computed, inject } from "vue";
+import {triggerSoundEffect} from "@blog/utils";
+import a from '/@/assets/audio/dog-bark-179915.mp3'
 
 const { theme }: any = inject("theme");
+
+const barking = () => {
+  triggerSoundEffect(a)
+}
 
 const dogUri = computed(() => {
   return theme.value === "light" ? "dog-pic-light" : "dog-pic-dark";
@@ -12,7 +18,7 @@ const dogUri = computed(() => {
   <div
     class="header-w h-300px m-auto pointer-events-none relative z-3 -translate-y-300px hidden sm:block"
   >
-    <div class="dog-pic w-166px h-200px absolute right-0 bottom-0" :class="dogUri"></div>
+    <div class="dog-pic w-166px h-200px absolute right-0 bottom-0 pointer-events-auto cursor-help" :class="dogUri" @dblclick="barking"></div>
   </div>
 </template>
 
