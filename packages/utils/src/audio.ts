@@ -1,5 +1,5 @@
 class AudioPlayer {
-    private audio!: HTMLAudioElement;
+    private audio!: HTMLAudioElement|null;
     constructor() {
         this.audio = null;
     }
@@ -14,7 +14,7 @@ class AudioPlayer {
     play() {
         if (this.audio) {
             this.audio.currentTime = 0;
-            this.audio.play().then(r => {});
+            this.audio.play().then(() => {});
         } else {
             console.error("未加载音频。使用loadAudio（audioSrc）方法加载音频文件。");
         }
