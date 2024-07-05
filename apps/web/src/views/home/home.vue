@@ -5,11 +5,13 @@ import ScrollToTop from "/@/components/ScrollToTop/scrollToTop.vue";
 </script>
 
 <template>
-  <div class="bg-white dark:bg-dark switch-animation min-h-dvh">
+  <div class="bg-#f5f5f4 dark:bg-dark switch-animation min-h-dvh">
     <HomeHeader />
     <BodyWrapper />
     <ScrollToTop />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>

@@ -1,16 +1,22 @@
 <script setup lang="ts">
-import { computed, inject } from "vue";
+import {computed, inject, ref} from "vue";
 import {triggerSoundEffect} from "@blog/utils";
 import a from '/@/assets/audio/dog-bark-179915.mp3'
 
 const { theme }: any = inject("theme");
 
+const vibrate = ref(false)
 const barking = () => {
+  vibrate.value = true
   triggerSoundEffect(a)
+  setTimeout(()=>{
+    vibrate.value = false
+  },320)
 }
 
 const dogUri = computed(() => {
-  return theme.value === "light" ? "dog-pic-light" : "dog-pic-dark";
+  let classList = theme.value === "light" ? "dog-pic-light" : "dog-pic-dark";
+  return vibrate.value ? `${classList} vibrate-1` : classList
 });
 </script>
 

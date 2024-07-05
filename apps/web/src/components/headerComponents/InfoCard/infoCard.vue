@@ -76,7 +76,7 @@ onBeforeUnmount(() => {
     >
       浅学
       <span
-        class="font-nss font-bold bg-clip-text text-transparent bg-gradient-to-r from-#330867 to-#30cfd0 dark:from-#fef9d7 dark:to-#d299c2"
+        class="font-nss font-bold bg-clip-text text-transparent bg-gradient-to-r from-#330867 to-#10b981 dark:from-#fef9d7 dark:to-#d299c2"
         >JavaScript</span
       >
       、

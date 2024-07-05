@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { menuList } from "/@/hooks/useMenuList/useMenuList.ts";
 import { ref } from "vue";
+import VolumeButton from "/@/components/headerComponents/NavigationBar/components/volumeButton.vue";
+import GithubButton from "/@/components/headerComponents/NavigationBar/components/githubButton.vue";
+import themeButton from "/src/components/headerComponents/NavigationBar/components/themeButton.vue";
 
 const menuOpen = ref(false);
 
@@ -23,7 +26,7 @@ defineExpose({
       class="fixed top-0 left-0 right-0 bottom-0 z-3 bg-[rgba(0,0,0,0.5)] dark:bg-[rgba(0,0,0,0.1)]"
     >
       <div
-        class="fixed top-0 left-0 right-0 h-auto flex flex-col items-center p-t-30px p-b-20px bg-white dark:bg-#153448 scale-in-ver-top"
+        class="fixed top-0 left-0 right-0 h-auto flex flex-col items-center p-t-30px p-b-20px bg-white dark:bg-#153448 scale-in-ver-top switch-animation"
       >
         <div
           v-for="(i, idx) in menuList"
@@ -34,6 +37,11 @@ defineExpose({
           }"
         >
           {{ i.title }}
+        </div>
+        <div class="flex m-t-10px">
+          <theme-button />
+          <volume-button />
+          <github-button />
         </div>
         <button
           @click="closeMenu"

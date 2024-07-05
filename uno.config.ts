@@ -14,7 +14,7 @@ export default defineConfig({
     presetWebFonts({
       provider: "google", // default provider
       fonts: {
-        playwrite: ["Dancing Script"],
+        playwrite: ["Kanit"],
         msz: ["Ma Shan Zheng"],
         cnss: ["Noto Sans SC"],
         nss: ["Noto Serif SC"]

@@ -11,7 +11,7 @@ const blockMouseenterHandler = () => {
 
 <template>
   <div class="">
-    <div class="flex items-center m-b-16px md:m-b-40px">
+    <div class="flex items-center m-b-16px md:m-b-30px">
       <span
         class="inline-block i-tabler-category-2 text-26px font-black color-#06b6d4 dark:color-#67e8f9 switch-animation"
       ></span>

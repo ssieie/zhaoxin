@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import { inject, ref } from "vue";
+import { ref } from "vue";
 import MdScreenMenu from "/@/components/headerComponents/MdScreenMenu/mdScreenMenu.vue";
 import { menuList } from "/@/hooks/useMenuList/useMenuList.ts";
-
-const { updateLocation } = inject<any>("theme");
-
-const toGitPage = () => {
-  const url = "https://github.com/ssieie/zhaoxin";
-  window.open(url, "_blank");
-};
+import GithubButton from "/@/components/headerComponents/NavigationBar/components/githubButton.vue";
+import VolumeButton from "/@/components/headerComponents/NavigationBar/components/volumeButton.vue";
+import themeButton from "/src/components/headerComponents/NavigationBar/components/themeButton.vue";
 
 const MdScreenMenuRef = ref();
 const openMenu = () => {
@@ -20,9 +16,9 @@ const openMenu = () => {
   <div class="h-18px sm:h-48px"></div>
   <div class="flex justify-between items-center m-auto header-w">
     <div class="flex items-center">
-      <div class="text-4xl font-bold m-r-60px cursor-pointer select-none">
+      <div class="text-3xl font-bold m-r-60px cursor-pointer select-none">
         <span
-          class="switch-animation bg-clip-text text-transparent bg-gradient-to-r from-#1d4ed8 to-#60a5fa font-playwrite dark:from-sky-200 dark:to-sky-600 focus-in-expand"
+          class="switch-animation color-#1d4ed8 font-playwrite dark:color-sky-200 focus-in-expand"
         >
           Zhao Xin
         </span>
@@ -40,14 +36,9 @@ const openMenu = () => {
       </div>
     </div>
     <div>
-      <button
-        @click="updateLocation"
-        class="i-tabler-sun dark:i-tabler-moon text-26px font-black m-r-10px sm:m-r-30px color-#374151 dark:color-#d1d5db switch-animation"
-      />
-      <button
-        @click="toGitPage"
-        class="i-tabler-brand-github text-26px font-black m-r-10px sm:m-r-30px color-#374151 zx-rotate-center-h dark:color-#d1d5db switch-animation"
-      />
+      <theme-button class="hidden md:inline-block" />
+      <volume-button class="hidden md:inline-block" />
+      <github-button class="hidden md:inline-block" />
       <button
         @click="openMenu"
         class="i-tabler-menu-2 text-26px font-black color-#374151 dark:color-#d1d5db switch-animation inline-block md:hidden"
