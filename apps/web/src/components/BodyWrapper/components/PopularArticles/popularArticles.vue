@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import {computed, inject} from "vue";
+const { theme }: any = inject("theme");
+
+const dogUri = computed(() => {
+  return theme.value === "light" ? "dog-pic-light" : "dog-pic-dark";
+});
 </script>
 
 <template>
@@ -12,9 +18,9 @@
         >热门内容</span
       >
     </div>
-    <div class="p-l-20px">
+    <div class="p-l-20px m-l-16px md:m-l-0">
       <div
-          v-for="(i, idx) in 10"
+          v-for="(i, idx) in 8"
           :style="{
         '--focus-in-expand-animation-delay': (idx + 1) * 0.16 + 's',
       }"
@@ -28,6 +34,7 @@
         ></span>
       </div>
     </div>
+    <div class="w-170px h-127px m-t-30px dog-pic m-auto md:m-none" :class="dogUri"></div>
   </div>
 </template>
 
@@ -38,7 +45,18 @@
 
 
 .title-arrow
-  left: -40px
+  left: -36px
   top: 1px
   transition: all .1s ease-in-out
+
+
+.dog-pic-light
+  background: url("../../../../assets/images/run-dog.png") no-repeat center
+
+.dog-pic-dark
+  background: url("../../../../assets/images/run-dog-dark.png") no-repeat center
+
+.dog-pic
+  background-size: contain
+  z-index: 1
 </style>

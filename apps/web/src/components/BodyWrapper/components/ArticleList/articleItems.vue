@@ -25,7 +25,7 @@ onMounted(()=>{
 </script>
 
 <template>
-  <div v-for="(i,idx) in 10" :ref="(e:any)=>{
+  <div v-for="(i,idx) in 8" :ref="(e:any)=>{
     if(e) articleRefs[idx] = e
   }" class="m-b-40px select-none cursor-pointer opacity-0">
     <p class="inline-block text-18px font-bold title-text-base m-b-10px relative underline-animation-target">
