@@ -7,6 +7,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("/@/views/home/home.vue"),
   },
   {
+    path: "/latest",
+    name: "latest",
+    component: () => import("/@/views/latestContent/latestContent.vue"),
+  },
+  {
     name: "notFound",
     path: "/:path(.*)*",
     component: () => import("/@/views/404.vue"),

@@ -164,3 +164,18 @@
         transform: translate(0);
     }
 }
+
+.fade-in-fwd {
+    animation: fade-in-fwd 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    animation-delay: var(--focus-in-expand-animation-delay);
+}
+@keyframes fade-in-fwd {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

@@ -1,3 +1,4 @@
+@import "../fonts/fonts.css";
 /* 定义滚动条滑块样式 */
 html::-webkit-scrollbar {
     width: 8px; /* 滚动条宽度 */
@@ -25,4 +26,8 @@ html::-webkit-scrollbar-thumb:hover {
     -webkit-line-clamp: 3; /* 这里设置显示的行数 */
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.alibbph{
+    font-family: '阿里巴巴普惠体', '微软雅黑', Arial, sans-serif;
 }

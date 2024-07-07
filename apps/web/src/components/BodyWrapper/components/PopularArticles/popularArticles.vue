@@ -14,17 +14,17 @@ const dogUri = computed(() => {
         class="inline-block i-tabler-christmas-tree text-26px font-black color-#06b6d4 dark:color-#67e8f9 switch-animation"
       ></span>
       <span
-        class="font-cnss p-l-4px color-#06b6d4 dark:color-#67e8f9 tracking-2px switch-animation"
+        class="alibbph p-l-4px color-#06b6d4 dark:color-#67e8f9 tracking-2px switch-animation"
         >热门内容</span
       >
     </div>
-    <div class="p-l-20px m-l-16px md:m-l-0">
+    <div class="p-l-20px m-l-16px md:m-l-0 alibbph">
       <div
           v-for="(i, idx) in 8"
           :style="{
         '--focus-in-expand-animation-delay': (idx + 1) * 0.16 + 's',
       }"
-          class="text-16px title-text-base m-b-12px select-none relative fade-in-top"
+          class="text-16px font-500 title-text-base m-b-12px select-none relative fade-in-top"
       >
       <span class="text-shadow-drop-right-h cursor-pointer title-wrap"
       >标题 - {{ i }}</span

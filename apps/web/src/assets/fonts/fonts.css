@@ -1,0 +1,41 @@
+@font-face {
+    font-family: '阿里巴巴普惠体';
+    src: local('阿里巴巴普惠体 3 45 Light'),
+    url('./AlibabaPuHuiTi-3-45-Light.woff2') format('woff2');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: '阿里巴巴普惠体';
+    src: local('阿里巴巴普惠体 3 55 Regular'),
+    url('./AlibabaPuHuiTi-3-55-Regular.woff2') format('woff2');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: '阿里巴巴普惠体';
+    src: local('阿里巴巴普惠体 3 65 Medium'),
+    url('./AlibabaPuHuiTi-3-65-Medium.woff2') format('woff2');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: '阿里巴巴普惠体';
+    src: local('阿里巴巴普惠体 3 75 SemBold'),
+    url('./AlibabaPuHuiTi-3-75-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: '阿里巴巴普惠体';
+    src: local('阿里巴巴普惠体 3 85 Bold'),
+    url('./AlibabaPuHuiTi-3-85-Bold.woff2') format('woff2');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: '阿里巴巴普惠体';
+    src: local('阿里巴巴普惠体 3 105 Heavy'),
+    url('./AlibabaPuHuiTi-3-105-Heavy.woff2') format('woff2');
+    font-weight: 800;
+}

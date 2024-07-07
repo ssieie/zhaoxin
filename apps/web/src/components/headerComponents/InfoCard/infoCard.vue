@@ -65,13 +65,13 @@ onBeforeUnmount(() => {
       I'm 🐂🐎
     </div>
     <div
-      class="font-mono text-20px font-medium tracking-3px fade-in-top h-30px"
+      class="alibbph text-18px font-400 tracking-3px fade-in-top h-30px"
       style="--focus-in-expand-animation-delay: 0.4s"
     >
       {{ displayedText }}<span class="blink-2 text-#0a0a0a">|</span>
     </div>
     <div
-      class="text-18px font-medium tracking-3px fade-in-top"
+      class="text-18px font-300 tracking-3px fade-in-top alibbph"
       style="--focus-in-expand-animation-delay: 0.6s"
     >
       浅学

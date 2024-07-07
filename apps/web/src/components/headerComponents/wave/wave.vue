@@ -29,6 +29,6 @@ const { theme } = inject("theme") as any;
 }
 .wave-svg-dark path{
   transition: fill cubic-bezier(0.4, 0, 0.2, 1) 350ms;
-  fill: #09090b;
+  fill: #020617;
 }
 </style>

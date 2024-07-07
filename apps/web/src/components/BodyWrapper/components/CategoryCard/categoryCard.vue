@@ -16,7 +16,7 @@ const blockMouseenterHandler = () => {
         class="inline-block i-tabler-category-2 text-26px font-black color-#06b6d4 dark:color-#67e8f9 switch-animation"
       ></span>
       <span
-        class="font-cnss p-l-4px color-#06b6d4 dark:color-#67e8f9 tracking-2px switch-animation"
+        class="alibbph p-l-4px color-#06b6d4 dark:color-#67e8f9 tracking-2px switch-animation"
         >热门类别</span
       >
     </div>
@@ -28,7 +28,7 @@ const blockMouseenterHandler = () => {
           '--focus-in-expand-animation-delay': (idx + 1) * 0.16 + 's',
         }"
         @mouseenter="blockMouseenterHandler"
-        class="cate-block scale-in-center p-6px p-l-10px p-r-10px cursor-pointer select-none rounded-lg color-#475569 bg-#e5e7eb hover:bg-#a8a29e dark:hover:bg-#71717a dark:bg-#334155 dark:color-#cbd5e1 switch-animation text-13px"
+        class="alibbph cate-block scale-in-center p-6px p-l-10px p-r-10px cursor-pointer select-none rounded-lg color-#475569 bg-#e5e7eb hover:bg-#a8a29e dark:hover:bg-#71717a dark:bg-#334155 dark:color-#cbd5e1 switch-animation text-13px"
       >
         {{ i }}
       </div>

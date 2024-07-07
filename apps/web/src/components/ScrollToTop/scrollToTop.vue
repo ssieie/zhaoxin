@@ -7,13 +7,13 @@ const scrollRef = ref();
 const ob = new IntersectionObserver(
   (entries) => {
     if (entries[0].isIntersecting) {
-      scrollRef.value.classList.add("active");
-    } else {
       scrollRef.value.classList.remove("active");
+    } else {
+      scrollRef.value.classList.add("active");
     }
   },
   {
-    threshold: 1,
+    threshold: 0,
   },
 );
 
@@ -35,13 +35,15 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="absolute top-120% z-9999" ref="objectOfReferenceRef"></div>
-  <div
-    @click="scrollToTop"
-    ref="scrollRef"
-    class="top cursor-pointer flex items-center justify-center fixed right-40px bottom-40px w-40px h-40px rounded-lg bg-#2563eb dark:bg-#3b82f6"
-  >
-    <span class="i-tabler-chevron-up text-26px font-black color-#fff"></span>
+  <div class="pointer-events-none">
+    <div class="absolute top-30% -z-9999" ref="objectOfReferenceRef"></div>
+    <div
+        @click="scrollToTop"
+        ref="scrollRef"
+        class="top cursor-pointer flex items-center justify-center fixed right-10px bottom-10px md:right-40px md:bottom-40px w-40px h-40px rounded-lg bg-#2563eb dark:bg-#3b82f6"
+    >
+      <span class="i-tabler-chevron-up text-26px font-black color-#fff"></span>
+    </div>
   </div>
 </template>
 
