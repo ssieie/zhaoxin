@@ -33,7 +33,7 @@ const openMenu = () => {
         v-for="(i, idx) in menuList"
         :key="idx"
         @click="routerChange(i)"
-        class="hidden md:block self-end focus-in-expand color-#111827 text-16px font-400 cursor-pointer m-r-30px alibbph dark:color-#d4d4d8 relative underline-animation-target select-none"
+        class="hidden md:block self-end focus-in-expand color-#111827 text-16px font-300 cursor-pointer m-r-30px alibbph dark:color-#d4d4d8 relative underline-animation-target select-none"
         :style="{
           '--focus-in-expand-animation-delay': (idx + 1) * 0.12 + 's',
         }"
