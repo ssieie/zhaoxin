@@ -1,17 +1,11 @@
 <script setup lang="ts">
-import {menuList, RouteItem} from "/@/hooks/useMenuList/useMenuList.ts";
+import { useMenu } from "/@/hooks/useMenuList/useMenuList.ts";
 import { ref } from "vue";
 import VolumeButton from "/@/components/headerComponents/NavigationBar/components/volumeButton.vue";
 import GithubButton from "/@/components/headerComponents/NavigationBar/components/githubButton.vue";
 import themeButton from "/src/components/headerComponents/NavigationBar/components/themeButton.vue";
 
-import { useRouter } from "vue-router";
-
-const router = useRouter();
-const routerChange = (item: RouteItem) => {
-  router.push(item.url)
-  closeMenu()
-};
+const { menuList, menuChange } = useMenu();
 
 const menuOpen = ref(false);
 
@@ -39,7 +33,7 @@ defineExpose({
         <div
           v-for="(i, idx) in menuList"
           :key="idx"
-          @click="routerChange(i)"
+          @click="menuChange('push', i, closeMenu)"
           class="p-6px focus-in-expand color-#111827 text-16px font-400 cursor-pointer alibbph dark:color-#d4d4d8 select-none"
           :style="{
             '--focus-in-expand-animation-delay': (idx + 1) * 0.12 + 's',

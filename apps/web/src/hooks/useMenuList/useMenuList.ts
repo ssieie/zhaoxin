@@ -1,4 +1,5 @@
-import { ref } from "vue";
+import {ref} from "vue";
+import { useRouter } from "vue-router";
 
 export interface RouteItem {
   title: string;
@@ -7,7 +8,7 @@ export interface RouteItem {
 
 export type menuListType = RouteItem[];
 
-export const menuList = ref<menuListType>([
+const menuList = ref<menuListType>([
   {
     title: "最新",
     url: "/latest",
@@ -29,3 +30,26 @@ export const menuList = ref<menuListType>([
     url: "/category",
   },
 ]);
+
+export function useMenu() {
+  const router = useRouter();
+
+  const menuChange = (
+      type: "push",
+      item: RouteItem,
+      callback?: Function,
+  ) => {
+    switch (type) {
+      case "push":
+        router.push(item.url).then(() => {
+          callback && callback();
+        });
+        break;
+    }
+  };
+
+  return {
+    menuList,
+    menuChange,
+  };
+}
