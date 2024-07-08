@@ -38,7 +38,7 @@ onMounted(() => {
 <template>
   <div class="m-auto header-w alibbph p-b-40px md:p-b-80px">
     <div
-      class="flex justify-between items-end m-t-20px m-b-30px md:m-t-100px text-36px font-700 title-text-base"
+      class="flex justify-between items-end m-t-20px m-b-30px md:m-t-60px text-30px font-700 title-text-base"
     >
       <span>最新内容</span>
       <span class="text-18px font-300">9&nbsp;篇文章</span>

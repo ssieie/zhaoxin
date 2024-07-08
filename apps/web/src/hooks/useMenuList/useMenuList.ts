@@ -23,7 +23,7 @@ const menuList = ref<menuListType>([
   },
   {
     title: "小憩",
-    url: "/category",
+    url: "/takeAMomentOff",
   },
   {
     title: "关于",
@@ -31,7 +31,7 @@ const menuList = ref<menuListType>([
   },
   {
     title: "还没想好",
-    url: "/category",
+    url: "/unknown",
   },
 ]);
 

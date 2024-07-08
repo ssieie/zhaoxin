@@ -17,7 +17,7 @@ const categoryList = [
     <div class="sticky top-0 bg-base z-9999 p-b-30px">
       <navigation-bar />
     </div>
-    <div class="p-b-20px md:p-b-60px m-t-20px  md:m-t-100px">
+    <div class="p-b-20px md:p-b-60px m-t-20px  md:m-t-60px">
       <CategoryItem v-for="i in categoryList" :key="i.name" :category-info="i" />
     </div>
   </div>

@@ -49,7 +49,7 @@ onMounted(() => {
 <template>
   <div class="m-auto header-w alibbph m-b-20px md:m-b-40px">
     <div
-      class="flex justify-between items-end m-b-20px text-36px font-700 title-text-base"
+      class="flex justify-between items-end m-b-20px text-26px font-700 title-text-base"
     >
       <span>{{categoryInfo.name}}</span>
       <span class="text-18px font-300">{{categoryInfo.articleList.length}}&nbsp;篇文章</span>
