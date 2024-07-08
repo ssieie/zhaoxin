@@ -41,7 +41,8 @@ defineExpose({
         >
           {{ i.title }}
         </div>
-        <div class="flex m-t-10px">
+        <div class="h-6px w-full bg-#f5f5f5 dark:bg-#334155 switch-animation m-b-10px m-t-10px"></div>
+        <div class="flex">
           <theme-button />
           <volume-button />
           <github-button />

@@ -2,9 +2,10 @@
 
 <template>
   <div
-    class="bg-#fce7f3 dark:bg-#1e293b"
+    class="bg-#f1f5f9 dark:bg-#1e293b switch-animation"
   >
-    <div class="flex justify-between items-center flex-wrap m-auto header-w p-t-26px p-b-26px color-#0f766e dark:color-#5eead4">
+    <div class="flex justify-between items-center flex-wrap m-auto header-w p-t-26px p-b-26px color-#0f766e dark:color-#5eead4 switch-animation
+">
       <div>
         Made with
         ❤

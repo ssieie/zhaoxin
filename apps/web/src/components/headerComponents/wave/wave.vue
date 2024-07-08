@@ -25,7 +25,7 @@ const { theme } = inject("theme") as any;
 <style scoped>
 .wave-svg path{
   transition: fill cubic-bezier(0.4, 0, 0.2, 1) 350ms;
-  fill: #f5f5f4;
+  fill: #f8fafc;
 }
 .wave-svg-dark path{
   transition: fill cubic-bezier(0.4, 0, 0.2, 1) 350ms;

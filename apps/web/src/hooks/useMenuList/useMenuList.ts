@@ -19,11 +19,15 @@ const menuList = ref<menuListType>([
   },
   {
     title: "事件里程碑",
-    url: "/category",
+    url: "/milestone",
   },
   {
     title: "小憩",
     url: "/category",
+  },
+  {
+    title: "关于",
+    url: "/about",
   },
   {
     title: "还没想好",

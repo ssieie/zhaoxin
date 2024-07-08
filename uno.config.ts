@@ -50,7 +50,7 @@ export default defineConfig({
   shortcuts: {
     "header-w": "max-w-350px sm:max-w-600px md-sm::max-w-800px md:max-w-900px lg-md:max-w-1000px lg:max-w-1100px",
     "switch-animation": "transition duration-350",
-    "bg-base": "bg-[#f0f0f0] dark:bg-[#20202a] switch-animation",
+    "bg-base": "bg-[#f8fafc] dark:bg-[#020617] switch-animation",
     "title-text-base": "text-[#1e293b] dark:text-[#f1f5f9] switch-animation",
     "desc-text-base": "text-[#475569] dark:text-[#e2e8f0] switch-animation",
     "underline-base": "bg-[#64748b] dark:bg-[#f0f0f0]"

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-
 import NavigationBar from "/@/components/headerComponents/NavigationBar/navigationBar.vue";
-import LatestBlock from "/@/views/latestContent/components/latestBlock.vue";
+
+
+
 </script>
 
 <template>
@@ -9,7 +10,8 @@ import LatestBlock from "/@/views/latestContent/components/latestBlock.vue";
     <div class="sticky top-0 bg-base z-9999 p-b-30px">
       <navigation-bar />
     </div>
-    <latest-block />
+    <div class="p-b-20px md:p-b-60px m-t-20px  md:m-t-100px">
+    </div>
   </div>
 </template>
 

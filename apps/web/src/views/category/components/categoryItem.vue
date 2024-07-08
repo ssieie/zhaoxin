@@ -1,5 +1,16 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import {onMounted, ref, toRefs} from "vue";
+
+interface CategoryItem<T> {
+  name: string;
+  articleList: Array<T>;
+}
+
+const props = defineProps<{
+  categoryInfo: CategoryItem<unknown>;
+}>();
+
+const {categoryInfo} = toRefs(props)
 
 const articleRefs = ref<Array<HTMLElement>>([]);
 
@@ -36,16 +47,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="m-auto header-w alibbph p-b-40px md:p-b-80px">
+  <div class="m-auto header-w alibbph m-b-20px md:m-b-40px">
     <div
-      class="flex justify-between items-end m-t-20px m-b-30px md:m-t-100px text-36px font-700 title-text-base"
+      class="flex justify-between items-end m-b-20px text-36px font-700 title-text-base"
     >
-      <span>最新内容</span>
-      <span class="text-18px font-300">9&nbsp;篇文章</span>
+      <span>{{categoryInfo.name}}</span>
+      <span class="text-18px font-300">{{categoryInfo.articleList.length}}&nbsp;篇文章</span>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div
-        v-for="(i, idx) in 9"
+        v-for="(i, idx) in categoryInfo.articleList"
         :key="idx"
         :ref="
           (e: any) => {
