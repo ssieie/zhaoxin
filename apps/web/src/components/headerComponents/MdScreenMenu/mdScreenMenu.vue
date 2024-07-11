@@ -33,15 +33,21 @@ defineExpose({
         <div
           v-for="(i, idx) in menuList"
           :key="idx"
-          @click="menuChange('push', i, closeMenu)"
-          class="p-6px focus-in-expand color-#111827 text-16px font-400 cursor-pointer alibbph dark:color-#d4d4d8 select-none"
+          @click="menuChange('push', i, idx, closeMenu)"
+          class="m-6px focus-in-expand color-#111827 text-16px font-400 cursor-pointer alibbph dark:color-#d4d4d8 select-none underline-animation-target"
           :style="{
             '--focus-in-expand-animation-delay': (idx + 1) * 0.12 + 's',
           }"
         >
           {{ i.title }}
+          <span
+            class="underline-animation underline-base"
+            :class="{ 'underline-animation-active': i.isActive }"
+          ></span>
         </div>
-        <div class="h-6px w-full bg-#f5f5f5 dark:bg-#334155 switch-animation m-b-10px m-t-10px"></div>
+        <div
+          class="h-6px w-full bg-#f5f5f5 dark:bg-#334155 switch-animation m-b-10px m-t-10px"
+        ></div>
         <div class="flex">
           <theme-button />
           <volume-button />

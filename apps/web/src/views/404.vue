@@ -7,16 +7,18 @@
         <span>4</span>
       </section>
       <div class="link-container alibbph">
-        <router-link to="/">返回首页</router-link>
+        <span @click="menuChange('push', { title: '首页', url: '/' }, -1)"
+          >返回首页</span
+        >
       </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'NotFound',
-}
+<script setup lang="ts">
+import { useMenu } from "/@/hooks/useMenuList/useMenuList.js";
+
+const { menuChange } = useMenu();
 </script>
 
 <style scoped>
@@ -26,44 +28,54 @@ export default {
   font-weight: 800;
   margin: 20px 15px;
 }
+
 .error-container > span {
   display: inline-block;
   line-height: 0.7;
   position: relative;
-  color: #FFB485;
+  color: #ffb485;
 }
+
 .error-container > span {
   display: inline-block;
   position: relative;
   vertical-align: middle;
 }
+
 .error-container > span:nth-of-type(1) {
-  color: #D1F2A5;
+  color: #d1f2a5;
   animation: colordancing 4s infinite;
 }
+
 .error-container > span:nth-of-type(3) {
-  color: #F56991;
+  color: #f56991;
   animation: colordancing2 4s infinite;
 }
+
 .error-container > span:nth-of-type(2) {
   width: 120px;
   height: 120px;
   border-radius: 999px;
 }
+
 .error-container > span:nth-of-type(2):before,
 .error-container > span:nth-of-type(2):after {
   border-radius: 0%;
-  content:"";
+  content: "";
   position: absolute;
-  top: 0; left: 0;
-  width: inherit; height: inherit;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
   border-radius: 999px;
-  box-shadow: inset 30px 0 0 rgba(209, 242, 165, 0.4),
-  inset 0 30px 0 rgba(239, 250, 180, 0.4),
-  inset -30px 0 0 rgba(255, 196, 140, 0.4),
-  inset 0 -30px 0 rgba(245, 105, 145, 0.4);
+  box-shadow:
+    inset 30px 0 0 rgba(209, 242, 165, 0.4),
+    inset 0 30px 0 rgba(239, 250, 180, 0.4),
+    inset -30px 0 0 rgba(255, 196, 140, 0.4),
+    inset 0 -30px 0 rgba(245, 105, 145, 0.4);
   animation: shadowsdancing 4s infinite;
 }
+
 .error-container > span:nth-of-type(2):before {
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
@@ -75,78 +87,88 @@ export default {
   top: -9999em;
   left: -9999em;
 }
+
 @keyframes shadowsdancing {
   0% {
-    box-shadow: inset 30px 0 0 rgba(209, 242, 165, 0.4),
-    inset 0 30px 0 rgba(239, 250, 180, 0.4),
-    inset -30px 0 0 rgba(255, 196, 140, 0.4),
-    inset 0 -30px 0 rgba(245, 105, 145, 0.4);
+    box-shadow:
+      inset 30px 0 0 rgba(209, 242, 165, 0.4),
+      inset 0 30px 0 rgba(239, 250, 180, 0.4),
+      inset -30px 0 0 rgba(255, 196, 140, 0.4),
+      inset 0 -30px 0 rgba(245, 105, 145, 0.4);
   }
   25% {
-    box-shadow: inset 30px 0 0 rgba(245, 105, 145, 0.4),
-    inset 0 30px 0 rgba(209, 242, 165, 0.4),
-    inset -30px 0 0 rgba(239, 250, 180, 0.4),
-    inset 0 -30px 0 rgba(255, 196, 140, 0.4);
+    box-shadow:
+      inset 30px 0 0 rgba(245, 105, 145, 0.4),
+      inset 0 30px 0 rgba(209, 242, 165, 0.4),
+      inset -30px 0 0 rgba(239, 250, 180, 0.4),
+      inset 0 -30px 0 rgba(255, 196, 140, 0.4);
   }
   50% {
-    box-shadow: inset 30px 0 0 rgba(255, 196, 140, 0.4),
-    inset 0 30px 0 rgba(245, 105, 145, 0.4),
-    inset -30px 0 0 rgba(209, 242, 165, 0.4),
-    inset 0 -30px 0 rgba(239, 250, 180, 0.4);
+    box-shadow:
+      inset 30px 0 0 rgba(255, 196, 140, 0.4),
+      inset 0 30px 0 rgba(245, 105, 145, 0.4),
+      inset -30px 0 0 rgba(209, 242, 165, 0.4),
+      inset 0 -30px 0 rgba(239, 250, 180, 0.4);
   }
   75% {
-    box-shadow: inset 30px 0 0 rgba(239, 250, 180, 0.4),
-    inset 0 30px 0 rgba(255, 196, 140, 0.4),
-    inset -30px 0 0 rgba(245, 105, 145, 0.4),
-    inset 0 -30px 0 rgba(209, 242, 165, 0.4);
+    box-shadow:
+      inset 30px 0 0 rgba(239, 250, 180, 0.4),
+      inset 0 30px 0 rgba(255, 196, 140, 0.4),
+      inset -30px 0 0 rgba(245, 105, 145, 0.4),
+      inset 0 -30px 0 rgba(209, 242, 165, 0.4);
   }
   100% {
-    box-shadow: inset 30px 0 0 rgba(209, 242, 165, 0.4),
-    inset 0 30px 0 rgba(239, 250, 180, 0.4),
-    inset -30px 0 0 rgba(255, 196, 140, 0.4),
-    inset 0 -30px 0 rgba(245, 105, 145, 0.4);
+    box-shadow:
+      inset 30px 0 0 rgba(209, 242, 165, 0.4),
+      inset 0 30px 0 rgba(239, 250, 180, 0.4),
+      inset -30px 0 0 rgba(255, 196, 140, 0.4),
+      inset 0 -30px 0 rgba(245, 105, 145, 0.4);
   }
 }
+
 @keyframes colordancing {
   0% {
-    color: #D1F2A5;
+    color: #d1f2a5;
   }
   25% {
-    color: #F56991;
+    color: #f56991;
   }
   50% {
-    color: #FFC48C;
+    color: #ffc48c;
   }
   75% {
-    color: #EFFAB4;
+    color: #effab4;
   }
   100% {
-    color: #D1F2A5;
+    color: #d1f2a5;
   }
 }
+
 @keyframes colordancing2 {
   0% {
-    color: #FFC48C;
+    color: #ffc48c;
   }
   25% {
-    color: #EFFAB4;
+    color: #effab4;
   }
   50% {
-    color: #D1F2A5;
+    color: #d1f2a5;
   }
   75% {
-    color: #F56991;
+    color: #f56991;
   }
   100% {
-    color: #FFC48C;
+    color: #ffc48c;
   }
 }
 
 .link-container {
   text-align: center;
 }
-.link-container a {
+
+.link-container span {
   display: inline-block;
+  cursor: pointer;
   padding: 10px 20px;
   font-size: 1rem;
   color: #416475;

@@ -1,9 +1,10 @@
-import {ref} from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 export interface RouteItem {
   title: string;
   url: string;
+  isActive?: boolean;
 }
 
 export type menuListType = RouteItem[];
@@ -12,37 +13,49 @@ const menuList = ref<menuListType>([
   {
     title: "最新",
     url: "/latest",
+    isActive: false,
   },
   {
     title: "分类",
     url: "/category",
+    isActive: false,
   },
   {
     title: "事件里程碑",
     url: "/milestone",
+    isActive: false,
   },
   {
     title: "小憩",
     url: "/takeAMomentOff",
+    isActive: false,
   },
   {
     title: "关于",
     url: "/about",
+    isActive: false,
   },
   {
     title: "还没想好",
     url: "/unknown",
+    isActive: false,
   },
 ]);
+let thePreviousActive = -1;
 
 export function useMenu() {
   const router = useRouter();
-
   const menuChange = (
-      type: "push",
-      item: RouteItem,
-      callback?: Function,
+    type: "push",
+    item: RouteItem,
+    idx: number,
+    callback?: Function,
   ) => {
+    // 这里有点小问题, 就先这样吧
+    !!~thePreviousActive &&
+      (menuList.value[thePreviousActive].isActive = false);
+    !!~idx && (item.isActive = true);
+    thePreviousActive = idx;
     switch (type) {
       case "push":
         router.push(item.url).then(() => {
