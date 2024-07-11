@@ -33,7 +33,7 @@ defineExpose({
         <div
           v-for="(i, idx) in menuList"
           :key="idx"
-          @click="menuChange('push', i, idx, closeMenu)"
+          @click="menuChange('push', i, closeMenu)"
           class="m-6px focus-in-expand color-#111827 text-16px font-400 cursor-pointer alibbph dark:color-#d4d4d8 select-none underline-animation-target"
           :style="{
             '--focus-in-expand-animation-delay': (idx + 1) * 0.12 + 's',

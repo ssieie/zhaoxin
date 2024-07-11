@@ -41,21 +41,10 @@ const menuList = ref<menuListType>([
     isActive: false,
   },
 ]);
-let thePreviousActive = -1;
 
 export function useMenu() {
   const router = useRouter();
-  const menuChange = (
-    type: "push",
-    item: RouteItem,
-    idx: number,
-    callback?: Function,
-  ) => {
-    // 这里有点小问题, 就先这样吧
-    !!~thePreviousActive &&
-      (menuList.value[thePreviousActive].isActive = false);
-    !!~idx && (item.isActive = true);
-    thePreviousActive = idx;
+  const menuChange = (type: "push", item: RouteItem, callback?: Function) => {
     switch (type) {
       case "push":
         router.push(item.url).then(() => {
@@ -70,3 +59,9 @@ export function useMenu() {
     menuChange,
   };
 }
+
+export const setMenuActive = (path: string) => {
+  menuList.value.forEach((v) => (v.isActive = false));
+  let menuItem = menuList.value.find((v) => v.url === path);
+  menuItem && (menuItem.isActive = true);
+};

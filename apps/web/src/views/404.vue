@@ -7,7 +7,7 @@
         <span>4</span>
       </section>
       <div class="link-container alibbph">
-        <span @click="menuChange('push', { title: '首页', url: '/' }, -1)"
+        <span @click="menuChange('push', { title: '首页', url: '/' })"
           >返回首页</span
         >
       </div>
