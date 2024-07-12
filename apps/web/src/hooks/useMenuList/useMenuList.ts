@@ -21,7 +21,7 @@ const menuList = ref<menuListType>([
     isActive: false,
   },
   {
-    title: "事件里程碑",
+    title: "事件时间线",
     url: "/milestone",
     isActive: false,
   },
