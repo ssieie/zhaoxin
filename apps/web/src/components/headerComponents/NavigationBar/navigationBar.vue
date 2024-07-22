@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import MdScreenMenu from "/@/components/headerComponents/MdScreenMenu/mdScreenMenu.vue";
+import { defineAsyncComponent, ref } from "vue";
 import { useMenu } from "/@/hooks/useMenuList/useMenuList.ts";
 import GithubButton from "/@/components/headerComponents/NavigationBar/components/githubButton.vue";
 import VolumeButton from "/@/components/headerComponents/NavigationBar/components/volumeButton.vue";
 import themeButton from "/src/components/headerComponents/NavigationBar/components/themeButton.vue";
+
+const MdScreenMenu = defineAsyncComponent(() => import("/@/components/headerComponents/MdScreenMenu/mdScreenMenu.vue"),);
 
 const { menuList, menuChange } = useMenu();
 
