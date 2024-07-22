@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import NavigationBar from "/@/components/headerComponents/NavigationBar/navigationBar.vue";
+import Content from "/@/views/about/components/content.vue";
 
 
 
@@ -11,7 +12,7 @@ import NavigationBar from "/@/components/headerComponents/NavigationBar/navigati
       <navigation-bar />
     </div>
     <div class="m-auto header-w p-b-20px md:p-b-60px m-t-20px md:m-t-60px">
-      建设中
+      <content />
     </div>
   </div>
 </template>

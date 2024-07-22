@@ -35,11 +35,6 @@ const menuList = ref<menuListType>([
     url: "/about",
     isActive: false,
   },
-  {
-    title: "还没想好",
-    url: "/unknown",
-    isActive: false,
-  },
 ]);
 
 export function useMenu() {
