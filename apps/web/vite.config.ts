@@ -24,7 +24,7 @@ export default defineConfig((mode: ConfigEnv) => {
         inject: {
           data: {
             injectScript: `
-            <script id="MathJax-script" async src="./public/mathjax/tex-mml-chtml.js"></script>
+            <script id="MathJax-script" async src="/mathjax/tex-mml-chtml.js"></script>
           `,
           },
         },
