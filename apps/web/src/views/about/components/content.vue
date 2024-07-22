@@ -10,7 +10,7 @@ import hljs from "highlight.js";
 import { onMounted, ref } from "vue";
 
 const code = ref(`
-# 1321
+# 测试markdown
 
 ## 3
 

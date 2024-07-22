@@ -12,6 +12,7 @@ import Content from "/@/views/about/components/content.vue";
       <navigation-bar />
     </div>
     <div class="m-auto header-w p-b-20px md:p-b-60px m-t-20px md:m-t-60px">
+      <div class="bg-base z-1 text-30px font-700 title-text-base m-b-30px">关于</div>
       <content />
     </div>
   </div>
