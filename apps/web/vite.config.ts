@@ -3,6 +3,7 @@ import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import viteCompression from "vite-plugin-compression";
 import VueSetupExtend from "vite-plugin-vue-setup-extend";
+import { createHtmlPlugin } from 'vite-plugin-html';
 import UnoCSS from "unocss/vite";
 
 const pathResolve = (dir: string) => {
@@ -19,6 +20,15 @@ export default defineConfig((mode: ConfigEnv) => {
       viteCompression(),
       VueSetupExtend(),
       UnoCSS(),
+      createHtmlPlugin({
+        inject: {
+          data: {
+            injectScript: `
+            <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+          `,
+          },
+        },
+      }),
     ],
     base: "./",
     resolve: {

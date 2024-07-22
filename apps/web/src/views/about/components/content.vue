@@ -1,5 +1,5 @@
 <template>
-  <div ref="test" v-html="sanitizedContent"></div>
+  <div class="desc-text-base" ref="test" v-html="sanitizedContent"></div>
 </template>
 
 <script lang="ts" setup>

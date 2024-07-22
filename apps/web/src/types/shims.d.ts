@@ -6,6 +6,6 @@ declare module "@vue/runtime-dom" {
 
 declare global {
   interface Window {
-    MathJax: any;
+    MathJax: Record<typesetPromise, any>;
   }
 }
