@@ -18,6 +18,7 @@
     "@blog/components": "workspace:^",
     "@blog/utils": "workspace:^",
     "dompurify": "^3.1.6",
+    "github-markdown-css": "^5.6.1",
     "highlight.js": "^11.10.0",
     "marked": "^13.0.2",
     "marked-highlight": "^2.1.3",

@@ -1,5 +1,5 @@
 <template>
-  <div class="desc-text-base" ref="test" v-html="sanitizedContent"></div>
+  <div class="markdown-base markdown-body" ref="test" v-html="sanitizedContent"></div>
 </template>
 
 <script lang="ts" setup>
@@ -10,7 +10,19 @@ import hljs from "highlight.js";
 import { onMounted, ref } from "vue";
 
 const code = ref(`
-# 12d
+# 1321
+
+## 3
+
+### 3
+
+#### 4
+
+##### 5
+
+###### 6
+
+
 
 123123
 
@@ -21,6 +33,14 @@ const test = 'test'
 $$
 l \\perp \\beta ,l \\subset \\alpha \\Rightarrow \\alpha \\perp \\beta
 $$
+
+| 1    |      |      |
+| ---- | ---- | ---- |
+|      | 1    |      |
+|      |      | 3    |
+|      |      | 3    |
+
+------
 
 
 `);
