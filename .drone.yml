@@ -70,7 +70,7 @@ steps: # 定义流水线执行步骤，这些步骤将顺序执行
       source:
         - build/admin/
       target:
-        from_secret: DRONE_DICT_ADMIN
+        from_secret: DRONE_DICT
       host:
         from_secret: DRONE_HOST
       username:
