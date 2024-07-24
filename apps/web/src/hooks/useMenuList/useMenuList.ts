@@ -26,8 +26,13 @@ const menuList = ref<menuListType>([
     isActive: false,
   },
   {
-    title: "小憩",
+    title: "乱七倒八",
     url: "/takeAMomentOff",
+    isActive: false,
+  },
+  {
+    title: "我的摄影集",
+    url: "/photoAlbum",
     isActive: false,
   },
   {

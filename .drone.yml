@@ -20,6 +20,7 @@ steps: # 定义流水线执行步骤，这些步骤将顺序执行
       - npm install -g pnpm
       - pnpm install
       - pnpm build
+      - pnpm build-admin
       - ls -la
     volumes:
       - name: cache
@@ -45,6 +46,31 @@ steps: # 定义流水线执行步骤，这些步骤将顺序执行
         - build/web/
       target:
         from_secret: DRONE_DICT
+      host:
+        from_secret: DRONE_HOST
+      username:
+        from_secret: DRONE_NAME
+      port:
+        from_secret: DRONE_PORT
+      password:
+        from_secret: DRONE_PSW
+    when:
+      branch:
+        include:
+          - main
+      event:
+        - push
+        - merge
+
+  - name: scp-admin
+    image: appleboy/drone-scp
+    pull: always
+    settings:
+      debug: true
+      source:
+        - build/admin/
+      target:
+        from_secret: DRONE_DICT_ADMIN
       host:
         from_secret: DRONE_HOST
       username:
