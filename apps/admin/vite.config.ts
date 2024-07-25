@@ -4,6 +4,8 @@ import viteCompression from "vite-plugin-compression";
 import VueSetupExtend from "vite-plugin-vue-setup-extend";
 import UnoCSS from "unocss/vite";
 import { fileURLToPath, URL } from 'node:url';
+import Components from 'unplugin-vue-components/vite';
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 
 // https://vitejs.dev/config/
 export default defineConfig((mode: ConfigEnv) => {
@@ -15,6 +17,13 @@ export default defineConfig((mode: ConfigEnv) => {
       viteCompression(),
       VueSetupExtend(),
       UnoCSS(),
+      Components({
+        resolvers: [
+          AntDesignVueResolver({
+            importStyle: false, // css in js
+          }),
+        ],
+      }),
     ],
     base: "./",
     resolve: {
