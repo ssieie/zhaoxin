@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import { message } from "ant-design-vue";
+import { commonApi } from "/@/api/common/common.ts";
 
 interface FormState {
   username: string;
@@ -15,6 +16,15 @@ const btnLoading = ref(false);
 const submit = () => {
   if (!formState.username) return message.warning("用户名为空");
   if (!formState.password) return message.warning("用户密码为空");
+  btnLoading.value = true;
+  commonApi()
+    .login(formState)
+    .then((res) => {
+      console.log(res);
+    })
+    .finally(() => {
+      btnLoading.value = false;
+    });
 };
 </script>
 
@@ -40,8 +50,8 @@ const submit = () => {
           :loading="btnLoading"
           size="large"
           class="btn btn-primary btn-block btn-large"
-          >登 录</a-button
-        >
+          >登 录
+        </a-button>
       </form>
     </div>
   </div>
