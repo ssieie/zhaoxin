@@ -27,8 +27,8 @@ const submit = () => {
       ...formState,
       password: Md5.hashStr(formState.password),
     })
-    .then(({ code, data, message:msg }: RequestResponse<string>) => {
-      if (code === 200) {
+    .then(({ status, data, message: msg }: RequestResponse<string>) => {
+      if (status === 200) {
         Session.set("token", data);
         message.success(msg);
         router.push("/dashboard");

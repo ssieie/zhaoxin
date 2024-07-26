@@ -22,5 +22,5 @@ enum ResponseStatusCode {
 declare type RequestResponse<T> = {
     data: T;
     message?: string;
-    code: ResponseStatusCode;
+    status: ResponseStatusCode;
 };
