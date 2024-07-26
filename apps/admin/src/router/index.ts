@@ -22,6 +22,7 @@ router.beforeEach((to) => {
     NProgress.done();
     return "/dashboard";
   }
+  NProgress.done();
 });
 
 export default router;

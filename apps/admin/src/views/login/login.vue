@@ -2,6 +2,11 @@
 import { reactive, ref } from "vue";
 import { message } from "ant-design-vue";
 import { commonApi } from "/@/api/common/common.ts";
+import { Md5 } from "ts-md5";
+import { Session } from "@blog/utils";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 interface FormState {
   username: string;
@@ -10,7 +15,7 @@ interface FormState {
 
 const formState = reactive<FormState>({
   username: "zhaoxin",
-  password: "",
+  password: "zxandhy",
 });
 const btnLoading = ref(false);
 const submit = () => {
@@ -18,9 +23,16 @@ const submit = () => {
   if (!formState.password) return message.warning("用户密码为空");
   btnLoading.value = true;
   commonApi()
-    .login(formState)
-    .then((res) => {
-      console.log(res);
+    .login({
+      ...formState,
+      password: Md5.hashStr(formState.password),
+    })
+    .then(({ code, data, message:msg }: RequestResponse<string>) => {
+      if (code === 200) {
+        Session.set("token", data);
+        message.success(msg);
+        router.push("/dashboard");
+      }
     })
     .finally(() => {
       btnLoading.value = false;
