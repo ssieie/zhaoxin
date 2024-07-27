@@ -13,15 +13,31 @@ steps: # 定义流水线执行步骤，这些步骤将顺序执行
       mount:
         - node_modules
         - .pnpm-store
-
-  - name: web_install_and_build # 流水线名称
-    image: node:18.16-alpine  # 定义创建容器的Docker镜像
+        -
+  - name: web_install
+    image: node:18.16-alpine
     commands:
       - npm install -g pnpm
+      - export NODE_OPTIONS=--max_old_space_size=4096
       - pnpm install
+    volumes:
+      - name: cache
+        path: /cache
+
+  - name: web_build
+    image: node:18.16-alpine
+    commands:
+      - export NODE_OPTIONS=--max_old_space_size=4096
       - pnpm build
+    volumes:
+      - name: cache
+        path: /cache
+
+  - name: web_build_admin
+    image: node:18.16-alpine
+    commands:
+      - export NODE_OPTIONS=--max_old_space_size=4096
       - pnpm build-admin
-      - ls -la
     volumes:
       - name: cache
         path: /cache
