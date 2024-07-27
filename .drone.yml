@@ -14,29 +14,15 @@ steps: # 定义流水线执行步骤，这些步骤将顺序执行
         - node_modules
         - .pnpm-store
         -
-  - name: web_install
+  - name: web_install_and_build
     image: node:18.16-alpine
     commands:
       - npm install -g pnpm
+      - pnpm store prune
+      - pnpm cache clean --all
       - export NODE_OPTIONS=--max_old_space_size=4096
       - pnpm install
-    volumes:
-      - name: cache
-        path: /cache
-
-  - name: web_build
-    image: node:18.16-alpine
-    commands:
-      - export NODE_OPTIONS=--max_old_space_size=4096
       - pnpm build
-    volumes:
-      - name: cache
-        path: /cache
-
-  - name: web_build_admin
-    image: node:18.16-alpine
-    commands:
-      - export NODE_OPTIONS=--max_old_space_size=4096
       - pnpm build-admin
     volumes:
       - name: cache
