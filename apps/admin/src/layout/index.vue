@@ -29,8 +29,13 @@
       </a-layout-header>
       <a-layout-content
         class="p-24px bg-#fff min-h-280px m-t-24px m-b-24px m-l-16px m-r-16px"
+        style="overflow-y: auto; height: calc(100vh - 64px - 48px)"
       >
-        <router-view />
+        <router-view v-slot="{ Component }">
+          <keep-alive>
+            <component :is="Component" />
+          </keep-alive>
+        </router-view>
       </a-layout-content>
     </a-layout>
   </a-layout>
@@ -111,9 +116,11 @@ onMounted(() => {
 }
 
 #components-layout-demo-custom-trigger .logo {
-  height: 32px;
-  background: rgba(255, 255, 255, 0.3);
-  margin: 16px;
+  height: 80px;
+  background-image: url("../assets/images/logo.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .site-layout .site-layout-background {

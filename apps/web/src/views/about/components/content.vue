@@ -1,64 +1,89 @@
 <template>
-  <div class="markdown-base markdown-body" ref="test" v-html="sanitizedContent"></div>
+  <CustomMdPreview id="about-zx" :content="text" />
 </template>
 
-<script lang="ts" setup>
-import { Marked } from "marked";
-import DOMPurify from "dompurify";
-import { markedHighlight } from "marked-highlight";
-import hljs from "highlight.js";
-import { onMounted, ref } from "vue";
+<script setup>
+import { ref } from 'vue';
+import CustomMdPreview from "/@/components/mdPreview/customMdPreview.vue";
 
-const code = ref(`
-# 测试markdown
+const text = ref(`
 
-## 3
+## 😲 md-editor-v3
 
-### 3
+Markdown 编辑器，vue3 版本，使用 jsx 模板 和 typescript 开发，支持切换主题、prettier 美化文本等。
 
-#### 4
+### 🤖 基本演示
 
-##### 5
+**加粗**，<u>下划线</u>，_斜体_，~~删除线~~，上标<sup>26</sup>，下标<sub>1</sub>，\`inline code\`，[超链接](https://github.com/imzbf)
 
-###### 6
+> 引用：《I Have a Dream》
 
+1. So even though we face the difficulties of today and tomorrow, I still have a dream.
+2. It is a dream deeply rooted in the American dream.
+3. I have a dream that one day this nation will rise up.
 
+- [ ] 周五
+- [ ] 周六
+- [x] 周天
 
-123123
+![图片](https://imzbf.github.io/md-editor-rt/imgs/mark_emoji.gif)
 
-\`\`\`javascript
-const test = 'test'
+## 🤗 代码演示
+
+\`\`\`vue
+<template>
+  <MdEditor v-model="text" />
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { MdEditor } from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
+
+const text = ref('Hello Editor!');
+<//script>
 \`\`\`
 
+## 🖨 文本演示
+
+依照普朗克长度这项单位，目前可观测的宇宙的直径估计值（直径约 930 亿光年，即 8.8 × 10<sup>26</sup> 米）即为 5.4 × 10
+<sup>61</sup>倍普朗克长度。而可观测宇宙体积则为 8.4 × 10<sup>184</sup>立方普朗克长度（普朗克体积）。
+
+## 📈 表格演示
+
+| 表头1  |  表头2   |  表头3 |
+| :----- | :------: | -----: |
+| 左对齐 | 中间对齐 | 右对齐 |
+
+## 📏 公式
+
+行内：$x+y^{2x}$
+
 $$
-l \\perp \\beta ,l \\subset \\alpha \\Rightarrow \\alpha \\perp \\beta
+\\begin{array}{c}   A={\\left[ a_{ij}\\right]_{m \\times n}},B={\\left[ b_{ij}\\right]_{n \\times s}} \\\\    c_{ij}= \\sum \\limits_{k=1}^{{n}}a_{ik}b_{kj} \\\\    C=AB=\\left[ c_{ij}\\right]_{m \\times s}    = \\left[ \\sum \\limits_{k=1}^{n}a_{ik}b_{kj}\\right]_{m \\times s} \\end{array}
 $$
 
-| 1    |      |      |
-| ---- | ---- | ---- |
-|      | 1    |      |
-|      |      | 3    |
-|      |      | 3    |
 
-------
+## 🧬 图表
+
+\`\`\`mermaid
+flowchart TD
+Start --> Stop
+\`\`\`
+
+## 🪄 提示
+
+!!! note 支持的类型
+
+note、abstract、info、tip、success、question、warning、failure、danger、bug、example、quote、hint、caution、error、attention
+
+!!!
+
+## ☘️ 占个坑@！
 
 
 `);
-
-const test = ref("");
-const sanitizedContent = ref("");
-const marked = new Marked(
-  markedHighlight({
-    langPrefix: "hljs language-",
-    highlight(code, lang) {
-      const language = hljs.getLanguage(lang) ? lang : "plaintext";
-      return hljs.highlight(code, { language }).value;
-    },
-  }),
-);
-sanitizedContent.value = DOMPurify.sanitize(marked.parse(code.value) as string);
-
-onMounted(() => {
-  window.MathJax.typesetPromise([test.value]);
-});
 </script>
+
+<style scoped>
+</style>

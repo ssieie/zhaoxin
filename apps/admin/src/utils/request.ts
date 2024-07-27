@@ -21,7 +21,7 @@ const service: AxiosInstance = axios.create({
 service.interceptors.request.use(
   (config) => {
     if (Session.get("token")) {
-      // (<any>config.headers).common["Authorization"] = `${Session.get("token")}`;
+      config.headers.Authorization = Session.get("token")
     }
     return config;
   },

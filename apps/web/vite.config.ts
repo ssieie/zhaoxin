@@ -2,7 +2,6 @@ import { defineConfig, loadEnv, ConfigEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
 import viteCompression from "vite-plugin-compression";
 import VueSetupExtend from "vite-plugin-vue-setup-extend";
-import { createHtmlPlugin } from 'vite-plugin-html';
 import UnoCSS from "unocss/vite";
 import { fileURLToPath, URL } from 'node:url';
 
@@ -16,15 +15,6 @@ export default defineConfig((mode: ConfigEnv) => {
       viteCompression(),
       VueSetupExtend(),
       UnoCSS(),
-      createHtmlPlugin({
-        inject: {
-          data: {
-            injectScript: `
-            <script id="MathJax-script" async src="/mathjax/tex-mml-chtml.js"></script>
-          `,
-          },
-        },
-      }),
     ],
     base: "./",
     resolve: {
