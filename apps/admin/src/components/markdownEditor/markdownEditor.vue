@@ -6,15 +6,11 @@ const model = defineModel();
 </script>
 
 <template>
-  <MdEditor class="custom-editor" v-model="model" />
+  <MdEditor class="custom-editor" v-model="model" :toolbars-exclude="['github']" />
 </template>
 
 <style scoped lang="sass">
 .custom-editor
   height: 100%
   overflow-y: auto
-
-  :deep(.md-editor-toolbar-right)
-    div:last-of-type
-      display: none !important
 </style>
