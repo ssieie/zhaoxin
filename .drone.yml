@@ -17,6 +17,7 @@ steps: # 定义流水线执行步骤，这些步骤将顺序执行
   - name: web_install_and_build # 流水线名称
     image: node:18.16-bullseye-slim  # 定义创建容器的Docker镜像
     commands:
+      - NODE_OPTIONS='--max-old-space-size=4096'
       - npm install -g pnpm
       - pnpm install
       - pnpm build
