@@ -6,7 +6,7 @@ const model = defineModel();
 </script>
 
 <template>
-  <MdEditor class="custom-editor" v-model="model" :toolbars-exclude="['github']" />
+  <MdEditor class="custom-editor" v-model="model" preview-theme="github" :toolbars-exclude="['github']" />
 </template>
 
 <style scoped lang="sass">

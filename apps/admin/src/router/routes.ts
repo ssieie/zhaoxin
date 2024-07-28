@@ -2,7 +2,9 @@ import { type RouteRecordRaw } from "vue-router";
 import { h } from "vue";
 import {
   HomeOutlined,
-  HeartOutlined
+  HeartOutlined,
+  AppstoreOutlined,
+  FormOutlined,
 } from "@ant-design/icons-vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -17,6 +19,18 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Dashboard',
         meta: { title: '首页', icon: () => h(HomeOutlined) },
         component: () => import('/@/views/home/home.vue'),
+      },
+      {
+        path: '/categoryManage',
+        name: 'CategoryManage',
+        meta: { title: '分类管理', icon: () => h(AppstoreOutlined) },
+        component: () => import('/@/views/categoryManage/categoryManage.vue'),
+      },
+      {
+        path: '/articleManage',
+        name: 'ArticleManage',
+        meta: { title: '文章管理', icon: () => h(FormOutlined) },
+        component: () => import('/@/views/articleManage/articleManage.vue'),
       },
       {
         path: '/aboutEdit',

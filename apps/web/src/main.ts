@@ -8,6 +8,8 @@ import "/@/assets/css/style.css";
 import "/@/assets/css/animista.css";
 import "/@/assets/css/custom.sass";
 
+import notyfPlugin from '/@/utils/notyfPlugin.ts';
+
 const app = createApp(App);
 
-app.use(router).mount("#app");
+app.use(router).use(notyfPlugin).mount("#app");

@@ -9,3 +9,13 @@ declare global {
     MathJax: Record<typesetPromise, any>;
   }
 }
+
+
+// 正常工作。
+export {}
+
+declare module 'vue' {
+  interface ComponentCustomProperties {
+    $notyf: any
+  }
+}
