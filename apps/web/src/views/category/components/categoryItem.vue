@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {onMounted, ref, toRefs} from "vue";
+import {Article} from "/@/api/article.ts";
 
 interface CategoryItem<T> {
   name: string;
@@ -7,7 +8,7 @@ interface CategoryItem<T> {
 }
 
 const props = defineProps<{
-  categoryInfo: CategoryItem<unknown>;
+  categoryInfo: CategoryItem<Article>;
 }>();
 
 const {categoryInfo} = toRefs(props)
@@ -65,9 +66,13 @@ onMounted(() => {
         "
         class="bg-white dark:bg-#1e293b desc-text-base p-20px rounded-lg shadow-lg dark:shadow-none cursor-pointer read-more opacity-0"
       >
-        <div class="font-600 text-20px m-b-20px title">标题 - {{ i }}</div>
-        <div class="font-300 text-16px m-b-20px">
-          “Promises”API“Promises” API“Promises” API“Pr omises
+        <div class="font-600 text-20px m-b-12px title">{{ i.title }}</div>
+        <div class="font-300 text-16px m-b-10px break-all">
+          {{ i.describe }}
+        </div>
+        <div class="m-b-8px text-14px">
+          <span class="self-end">更新时间:</span>
+          <span class="p-l-6px self-end">{{i.updateTime}}</span>
         </div>
         <div
           class="font-nss text-14px desc-text-base font-bold flex items-center chevron-block"

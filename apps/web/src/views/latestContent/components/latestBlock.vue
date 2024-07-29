@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import {computed, nextTick, onMounted, ref} from "vue";
+import {Article, articleApi} from "/@/api/article.ts";
+import {removeT} from "@blog/utils";
 
 const articleRefs = ref<Array<HTMLElement>>([]);
 
@@ -28,10 +30,25 @@ const ob = new IntersectionObserver(
   },
 );
 
+const articleListAll = ref<Article[]>([])
+
+const articleListCount = computed(()=>{
+  return articleListAll.value.length
+})
+
 onMounted(() => {
-  for (const el of articleRefs.value) {
-    ob.observe(el);
-  }
+
+  articleApi().listAll().then((res:RequestResponse<Article[]>)=>{
+    if (res.status === 200){
+      articleListAll.value = removeT<Article>(res.data)
+
+      nextTick(()=>{
+        for (const el of articleRefs.value) {
+          ob.observe(el);
+        }
+      })
+    }
+  })
 });
 </script>
 
@@ -41,12 +58,12 @@ onMounted(() => {
       class="flex justify-between items-end m-t-20px m-b-30px md:m-t-60px text-30px font-700 title-text-base"
     >
       <span>最新内容</span>
-      <span class="text-18px font-300">9&nbsp;篇文章</span>
+      <span class="text-18px font-300">{{articleListCount}}&nbsp;篇文章</span>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div
-        v-for="(i, idx) in 9"
-        :key="idx"
+        v-for="(i, idx) in articleListAll"
+        :key="i.id"
         :ref="
           (e: any) => {
             if (e) articleRefs[idx] = e;
@@ -54,9 +71,13 @@ onMounted(() => {
         "
         class="bg-white dark:bg-#1e293b desc-text-base p-20px rounded-lg shadow-lg dark:shadow-none cursor-pointer read-more opacity-0"
       >
-        <div class="font-600 text-20px m-b-20px title">标题 - {{ i }}</div>
-        <div class="font-300 text-16px m-b-20px">
-          “Promises”API“Promises” API“Promises” API“Pr omises
+        <div class="font-600 text-20px m-b-12px title">{{ i.title }}</div>
+        <div class="font-300 text-16px m-b-10px break-all">
+          {{i.describe}}
+        </div>
+        <div class="m-b-8px text-14px">
+          <span class="self-end">更新时间:</span>
+          <span class="p-l-6px self-end">{{i.updateTime}}</span>
         </div>
         <div
           class="font-nss text-14px desc-text-base font-bold flex items-center chevron-block"
