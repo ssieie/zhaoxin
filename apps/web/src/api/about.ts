@@ -5,5 +5,8 @@ export function aboutApi() {
     about() {
       return service({ url: `/web/about`, method: "get" });
     },
+    introduce() {
+      return service({ url: `/web/introduce`, method: "post", data:{text:''} });
+    },
   };
 }

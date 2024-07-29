@@ -54,6 +54,16 @@ const columns = [
     key: "describe",
   },
   {
+    title: "热度",
+    dataIndex: "heat",
+    key: "heat",
+  },
+  {
+    title: "点赞数",
+    dataIndex: "likeNumber",
+    key: "likeNumber",
+  },
+  {
     title: "创建时间",
     dataIndex: "createTime",
     key: "createTime",

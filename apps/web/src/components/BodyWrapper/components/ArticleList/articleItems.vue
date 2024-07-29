@@ -6,6 +6,7 @@ const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
 import { onMounted, ref } from "vue";
 import { Article, articleApi } from "/@/api/article.ts";
+import {removeT} from "@blog/utils";
 
 const articleRefs = ref<Array<any>>([]);
 
@@ -42,7 +43,7 @@ onMounted(() => {
     .then((res: RequestResponse<Article>) => {
       if (res.status === 200) {
         proxy.$notyf.success(res.message);
-        articleList.value = res.data
+        articleList.value = removeT(res.data)
         nextTick(()=>{
           for (const el of articleRefs.value) {
             ob.observe(el);
@@ -71,6 +72,10 @@ onMounted(() => {
     </p>
     <div class="desc-text-base text-15px alibbph m-b-10px text-pretty">
       {{i.describe}}
+    </div>
+    <div class="desc-text-base text-12px alibbph m-b-10px">
+      <span>最后编辑时间: </span>
+      <span>{{i.updateTime}}</span>
     </div>
     <div class="text-14px font-nss desc-text-base font-bold flex items-center">
       <span class="read-more p-r-4px">Read More</span>

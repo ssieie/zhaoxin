@@ -1,9 +1,23 @@
 <script setup lang="ts">
-import {computed, inject} from "vue";
+import { computed, inject, onMounted, ref } from "vue";
+import { articleApi } from "/@/api/article.ts";
+
 const { theme }: any = inject("theme");
 
 const dogUri = computed(() => {
   return theme.value === "light" ? "dog-pic-light" : "dog-pic-dark";
+});
+
+const hotList = ref<Record<"title" | "id", string>[]>([]);
+
+onMounted(() => {
+  articleApi()
+    .hotList()
+    .then((res: RequestResponse<Record<"title" | "id", string>[]>) => {
+      if (res.status === 200) {
+        hotList.value = res.data;
+      }
+    });
 });
 </script>
 
@@ -20,21 +34,24 @@ const dogUri = computed(() => {
     </div>
     <div class="p-l-20px m-l-16px md:m-l-0 alibbph">
       <div
-          v-for="(i, idx) in 8"
-          :style="{
-        '--focus-in-expand-animation-delay': (idx + 1) * 0.16 + 's',
-      }"
-          class="text-16px font-500 title-text-base m-b-12px select-none relative fade-in-top"
+        v-for="(i, idx) in hotList" :key="i.id"
+        :style="{
+          '--focus-in-expand-animation-delay': (idx + 1) * 0.16 + 's',
+        }"
+        class="text-16px font-500 title-text-base m-b-12px select-none relative fade-in-top"
       >
-      <span class="text-shadow-drop-right-h cursor-pointer title-wrap"
-      >标题 - {{ i }}</span
-      >
+        <span class="text-shadow-drop-right-h cursor-pointer title-wrap"
+          >{{ i.title }}</span
+        >
         <span
-            class="absolute title-arrow i-tabler-arrow-right text-24px color-#1d4ed8 dark:color-#3b82f6 switch-animation"
+          class="absolute title-arrow i-tabler-arrow-right text-24px color-#1d4ed8 dark:color-#3b82f6 switch-animation"
         ></span>
       </div>
     </div>
-    <div class="w-170px h-127px m-t-30px dog-pic m-auto md:m-none" :class="dogUri"></div>
+    <div
+      class="w-170px h-127px m-t-30px dog-pic m-auto md:m-none"
+      :class="dogUri"
+    ></div>
   </div>
 </template>
 

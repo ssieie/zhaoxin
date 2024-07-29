@@ -5,6 +5,8 @@ export interface Article {
   title: string;
   cName: string;
   describe: string;
+  heat: number;
+  likeNumber: number;
   createTime?: string;
   updateTime?: string;
 }

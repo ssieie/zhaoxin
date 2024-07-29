@@ -5,6 +5,8 @@ import {
   HeartOutlined,
   AppstoreOutlined,
   FormOutlined,
+  EditOutlined,
+  BarChartOutlined,
 } from "@ant-design/icons-vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -33,10 +35,22 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('/@/views/articleManage/articleManage.vue'),
       },
       {
+        path: '/introduceManage',
+        name: 'IntroduceManage',
+        meta: { title: '首页描述', icon: () => h(EditOutlined) },
+        component: () => import('/@/views/introduceManage/introduceManage.vue'),
+      },
+      {
         path: '/aboutEdit',
         name: 'AboutEdit',
         meta: { title: '编辑个人介绍', icon: () => h(HeartOutlined) },
         component: () => import('/@/views/aboutEdit/aboutEdit.vue'),
+      },
+      {
+        path: '/requestLog',
+        name: 'RequestLog',
+        meta: { title: '接口日志', icon: () => h(BarChartOutlined) },
+        component: () => import('/@/views/requestLog/requestLog.vue'),
       },
     ],
   },

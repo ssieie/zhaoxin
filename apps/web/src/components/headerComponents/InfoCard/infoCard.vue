@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from "vue";
+import {aboutApi} from "/@/api/about.ts";
 
 const sleep = (timeout = 2000) => {
   return new Promise((resolve) => {
@@ -13,12 +14,8 @@ let typingTimeout: number | null = null;
 let flag = true;
 let currentIndex = 0;
 const displayedText = ref("");
-let fullTextList = [
-  "一名前端开发程序员。",
-  "A Web <Developer /> .",
-  "目前苟活于山城。",
-];
-let fullText = fullTextList[0];
+const fullTextList = ref<string[]>([])
+let fullText = ''
 let fullTextIdx = 0;
 const startTyping = async () => {
   if (flag && currentIndex === fullText.length) {
@@ -28,7 +25,7 @@ const startTyping = async () => {
   if (!flag && currentIndex === 0) {
     flag = true;
     fullTextIdx++;
-    fullText = fullTextList[fullTextIdx % 3];
+    fullText = fullTextList.value[fullTextIdx % fullTextList.value.length];
   }
   if (flag) {
     displayedText.value += fullText.charAt(currentIndex);
@@ -42,9 +39,15 @@ const startTyping = async () => {
 };
 
 onMounted(() => {
-  setTimeout(() => {
-    startTyping();
-  }, 1000);
+  aboutApi().introduce().then((res:RequestResponse<Record<string, string>[]>)=>{
+    if (res.status === 200){
+      fullTextList.value = res.data.map(v=>v.text)
+      fullText = fullTextList.value[0]
+      setTimeout(() => {
+        startTyping();
+      }, 1000);
+    }
+  })
 });
 onBeforeUnmount(() => {
   clearTimeout(typingTimeout!);

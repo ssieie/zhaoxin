@@ -14,5 +14,11 @@ export function articleApi() {
         list() {
             return service({ url: `/web/article`, method: "get" });
         },
+        details(id:string) {
+            return service({ url: `/web/article/${id}`, method: "get" });
+        },
+        hotList() {
+            return service({ url: `/web/article/hot`, method: "get" });
+        },
     };
 }

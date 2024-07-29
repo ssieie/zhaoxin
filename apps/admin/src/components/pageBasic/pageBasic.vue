@@ -46,7 +46,7 @@ const search = () => {
     <div class="flex-1 flex flex-col overflow-y-auto">
       <slot />
     </div>
-    <div class="zx-pagination flex-initial">
+    <div class="zx-pagination flex-initial flex justify-end">
       <slot name="pagination" />
     </div>
   </div>
