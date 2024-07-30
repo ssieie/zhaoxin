@@ -5,7 +5,17 @@ import GithubButton from "/@/components/headerComponents/NavigationBar/component
 import VolumeButton from "/@/components/headerComponents/NavigationBar/components/volumeButton.vue";
 import themeButton from "/src/components/headerComponents/NavigationBar/components/themeButton.vue";
 
-const MdScreenMenu = defineAsyncComponent(() => import("/@/components/headerComponents/MdScreenMenu/mdScreenMenu.vue"),);
+export interface Props {
+  anim?: Boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  anim: true,
+});
+
+const MdScreenMenu = defineAsyncComponent(
+  () => import("/@/components/headerComponents/MdScreenMenu/mdScreenMenu.vue"),
+);
 
 const { menuList, menuChange } = useMenu();
 
@@ -24,7 +34,8 @@ const openMenu = () => {
         @click="menuChange('push', { title: '首页', url: '/' })"
       >
         <span
-          class="switch-animation color-#1d4ed8 font-playwrite dark:color-sky-200 focus-in-expand"
+          class="switch-animation color-#1d4ed8 font-playwrite dark:color-sky-200"
+          :class="props.anim?'focus-in-expand':''"
         >
           Zhao Xin
         </span>
@@ -33,7 +44,8 @@ const openMenu = () => {
         v-for="(i, idx) in menuList"
         :key="idx"
         @click="menuChange('push', i)"
-        class="hidden md:block self-end focus-in-expand color-#111827 text-16px font-300 cursor-pointer m-r-30px alibbph dark:color-#d4d4d8 relative underline-animation-target select-none"
+        :class="props.anim?'focus-in-expand':''"
+        class="hidden md:block self-end color-#111827 text-16px font-300 cursor-pointer m-r-30px alibbph dark:color-#d4d4d8 relative underline-animation-target select-none"
         :style="{
           '--focus-in-expand-animation-delay': (idx + 1) * 0.12 + 's',
         }"

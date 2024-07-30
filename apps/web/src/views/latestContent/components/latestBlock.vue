@@ -2,6 +2,9 @@
 import {computed, nextTick, onMounted, ref} from "vue";
 import {Article, articleApi} from "/@/api/article.ts";
 import {removeT} from "@blog/utils";
+import {useArticle} from "/@/components/BodyWrapper/components/ArticleList/articleUtils.ts";
+
+const article = useArticle()
 
 const articleRefs = ref<Array<HTMLElement>>([]);
 
@@ -69,6 +72,7 @@ onMounted(() => {
             if (e) articleRefs[idx] = e;
           }
         "
+        @click="article.toDetails(i.id)"
         class="bg-white dark:bg-#1e293b desc-text-base p-20px rounded-lg shadow-lg dark:shadow-none cursor-pointer read-more opacity-0"
       >
         <div class="font-600 text-20px m-b-12px title">{{ i.title }}</div>

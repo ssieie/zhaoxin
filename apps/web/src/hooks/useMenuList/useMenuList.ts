@@ -62,6 +62,6 @@ export function useMenu() {
 
 export const setMenuActive = (path: string) => {
   menuList.value.forEach((v) => (v.isActive = false));
-  let menuItem = menuList.value.find((v) => v.url === path);
+  let menuItem = menuList.value.find((v) => path.startsWith(v.url));
   menuItem && (menuItem.isActive = true);
 };

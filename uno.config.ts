@@ -17,7 +17,8 @@ export default defineConfig({
         playwrite: ["Kanit"],
         msz: ["Ma Shan Zheng"],
         cnss: ["Noto Sans SC"],
-        nss: ["Noto Serif SC"]
+        nss: ["Noto Serif SC"],
+        zqh: ["ZCOOL QingKe HuangYou"]
       }
     }),
     presetAttributify({

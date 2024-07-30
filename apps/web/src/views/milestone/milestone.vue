@@ -10,7 +10,7 @@ import ItemLine from "/@/views/milestone/components/itemLine.vue";
 <template>
   <div class="bg-base min-h-dvh">
     <div class="sticky top-0 bg-base z-9999 p-b-30px">
-      <navigation-bar />
+      <navigation-bar :anim="false" />
     </div>
     <div class="h-20px md:h-60px sticky top-85px md:top-115px bg-base z-1"></div>
     <div class="m-auto header-w p-b-20px wrapper alibbph">

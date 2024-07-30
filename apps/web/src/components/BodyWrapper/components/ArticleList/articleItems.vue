@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import {getCurrentInstance, nextTick} from "vue";
 import type { ComponentInternalInstance } from "vue";
-
-const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-
 import { onMounted, ref } from "vue";
 import { Article, articleApi } from "/@/api/article.ts";
 import {removeT} from "@blog/utils";
+import {useArticle} from "/@/components/BodyWrapper/components/ArticleList/articleUtils.ts";
+
+const article = useArticle()
+
+const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
 const articleRefs = ref<Array<any>>([]);
 
@@ -62,6 +64,7 @@ onMounted(() => {
         if (e) articleRefs[idx] = e;
       }
     "
+    @click="article.toDetails(i.id)"
     class="m-b-40px select-none cursor-pointer opacity-0"
   >
     <p
@@ -69,10 +72,6 @@ onMounted(() => {
     >
       <span>{{i.title}}</span>
       <span class="underline-animation underline-base"></span>
-
-<!--      <span class="text-14px flex items-end absolute -right-44px top-4px">-->
-<!--        -->
-<!--      </span>-->
     </p>
     <div class="desc-text-base text-16px alibbph m-b-10px text-pretty">
       {{i.describe}}

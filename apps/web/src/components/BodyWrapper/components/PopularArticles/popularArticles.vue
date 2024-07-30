@@ -2,6 +2,10 @@
 import { computed, inject, onMounted, ref } from "vue";
 import { articleApi } from "/@/api/article.ts";
 
+import {useArticle} from "/@/components/BodyWrapper/components/ArticleList/articleUtils.ts";
+
+const article = useArticle()
+
 const { theme }: any = inject("theme");
 
 const dogUri = computed(() => {
@@ -38,6 +42,7 @@ onMounted(() => {
         :style="{
           '--focus-in-expand-animation-delay': (idx + 1) * 0.16 + 's',
         }"
+        @click="article.toDetails(i.id)"
         class="text-16px font-700 title-text-base m-b-12px select-none relative fade-in-top"
       >
         <span class="text-shadow-drop-right-h cursor-pointer title-wrap"
@@ -49,7 +54,7 @@ onMounted(() => {
       </div>
     </div>
     <div
-      class="w-170px h-127px m-t-30px dog-pic m-auto md:m-none"
+      class="w-170px h-127px m-t-40px dog-pic m-auto md:m-t-40px md:m-l-0"
       :class="dogUri"
     ></div>
   </div>
