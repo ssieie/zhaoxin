@@ -24,5 +24,13 @@ export function commonApi() {
     requestLog(data: object) {
       return service({ url: `/api/requestLog`, method: "POST", data });
     },
+    upload(data: object) {
+      return service({
+        url: `/api/upload`,
+        method: "POST",
+        headers: { "Content-Type": "multipart/form-data" },
+        data,
+      });
+    },
   };
 }
