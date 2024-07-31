@@ -73,7 +73,7 @@ onMounted(() => {
       <span>{{i.title}}</span>
       <span class="underline-animation underline-base"></span>
     </p>
-    <div class="desc-text-base text-16px alibbph m-b-10px text-pretty">
+    <div class="desc-text-base text-16px alibbph m-b-10px text-pretty break-all">
       {{i.describe}}
     </div>
     <div class="desc-text-base text-14px alibbph m-b-10px flex ">

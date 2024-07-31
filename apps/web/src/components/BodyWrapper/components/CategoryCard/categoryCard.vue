@@ -3,6 +3,9 @@ import {triggerSoundEffect} from "@blog/utils";
 import a from '/@/assets/audio/bubbling.mp3'
 import {onMounted, ref} from "vue";
 import {articleApi, HotCategoryList} from "/@/api/article.ts";
+import {useArticle} from "/@/components/BodyWrapper/components/ArticleList/articleUtils.ts";
+
+const article = useArticle()
 
 const hotCategoryList = ref<HotCategoryList[]>([])
 
@@ -38,6 +41,7 @@ onMounted(()=>{
           '--focus-in-expand-animation-delay': (idx + 1) * 0.16 + 's',
         }"
         @mouseenter="blockMouseenterHandler"
+        @click="article.toOtherPage('/category', { id: i.cId })"
         class="alibbph cate-block scale-in-center p-6px p-l-10px p-r-10px cursor-pointer select-none rounded-lg color-#475569 bg-#e5e7eb hover:bg-#a8a29e dark:hover:bg-#71717a dark:bg-#334155 dark:color-#cbd5e1 switch-animation text-13px"
       >
         {{ i.cName }}

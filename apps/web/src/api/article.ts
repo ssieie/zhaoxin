@@ -39,5 +39,8 @@ export function articleApi() {
     hotCategoryList() {
       return service({ url: `/web/category/hot`, method: "post" });
     },
+    giveTheThumbsUp(id: string) {
+      return service({ url: `/web/article/like/${id}`, method: "post" });
+    },
   };
 }

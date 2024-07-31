@@ -5,8 +5,11 @@ import {onMounted, ref, watch} from "vue";
 import { Article, articleApi } from "/@/api/article.ts";
 import {removeT} from "@blog/utils";
 import {useRoute} from "vue-router";
+import {useThemeChange} from "/@/hooks/useThemeChange/useThemeChange.ts";
 
 const route = useRoute()
+
+const { headerBg } = useThemeChange();
 
 interface CategoryList {
   name: string;
@@ -51,7 +54,9 @@ onMounted(() => {
 
 <template>
   <div class="bg-base min-h-dvh">
-    <div class="sticky top-0 bg-base z-9999 p-b-30px">
+    <div class="sticky top-0 z-9999 p-b-30px header switch-animation"
+         :class="headerBg ? 'custom-header' : ''"
+    >
       <navigation-bar :anim="false" />
     </div>
     <div class="p-b-20px md:p-b-60px m-t-20px md:m-t-60px">
