@@ -7,6 +7,10 @@ import {
   FormOutlined,
   EditOutlined,
   BarChartOutlined,
+  VideoCameraAddOutlined,
+  TagsOutlined,
+  TableOutlined,
+  BookOutlined,
 } from "@ant-design/icons-vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -25,7 +29,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/categoryManage',
         name: 'CategoryManage',
-        meta: { title: '分类管理', icon: () => h(AppstoreOutlined) },
+        meta: { title: '文章分类', icon: () => h(AppstoreOutlined) },
         component: () => import('/@/views/categoryManage/categoryManage.vue'),
       },
       {
@@ -45,6 +49,31 @@ const routes: Array<RouteRecordRaw> = [
         name: 'AboutEdit',
         meta: { title: '编辑个人介绍', icon: () => h(HeartOutlined) },
         component: () => import('/@/views/aboutEdit/aboutEdit.vue'),
+      },
+      {
+        path: '/photoManage',
+        name: 'PhotoManage',
+        meta: { title: '我的照片', icon: () => h(VideoCameraAddOutlined) },
+        children:[
+          {
+            path: '/photo/categoryManage',
+            name: 'PhotoManage',
+            meta: { title: '照片分类', icon: () => h(TagsOutlined) },
+            component: () => import('/@/views/photoManage/categoryManage/categoryManage.vue'),
+          },
+          {
+            path: '/photo/tvSeries',
+            name: 'PhotoTvSeries',
+            meta: { title: '影集', icon: () => h(TableOutlined) },
+            component: () => import('/@/views/photoManage/tvSeries/tvSeries.vue'),
+          },
+          {
+            path: '/photo/photo',
+            name: 'Photo',
+            meta: { title: '照片', icon: () => h(BookOutlined) },
+            component: () => import('/@/views/photoManage/photo/photo.vue'),
+          },
+        ]
       },
       {
         path: '/requestLog',

@@ -27,6 +27,7 @@ declare module 'vue' {
     ASelectOption: typeof import('ant-design-vue/es')['SelectOption']
     ATable: typeof import('ant-design-vue/es')['Table']
     ATextarea: typeof import('ant-design-vue/es')['Textarea']
+    AUpload: typeof import('ant-design-vue/es')['Upload']
     MarkdownEditor: typeof import('./src/components/markdownEditor/markdownEditor.vue')['default']
     PageBasic: typeof import('./src/components/pageBasic/pageBasic.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

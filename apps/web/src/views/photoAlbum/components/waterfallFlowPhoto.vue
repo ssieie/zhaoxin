@@ -194,7 +194,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div>
-    <div class="wrap relative bg-#e2e8f0" ref="photoRef"></div>
+    <div class="wrap relative" ref="photoRef"></div>
     <div class="waterfall relative h-60px m-t-20px" ref="loadMoreRef">
       <div></div>
       <div></div>
