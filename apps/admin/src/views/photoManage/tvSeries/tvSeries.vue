@@ -76,6 +76,8 @@ const delRecord = (record: PhotoTvSeries) => {
         if (res.status === 200) {
           message.success(res.message);
           getList();
+        }else {
+          message.warning(res.message);
         }
       });
 };

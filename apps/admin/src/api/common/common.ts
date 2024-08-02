@@ -13,6 +13,13 @@ export interface RequestLog {
   total: number;
 }
 
+export interface FileUpload {
+  name: string;
+  url: string;
+  compressUrl: string;
+  compressRename: string;
+}
+
 export function commonApi() {
   return {
     login(data: object) {

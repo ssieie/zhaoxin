@@ -5,7 +5,7 @@ import { message } from "ant-design-vue";
 import type { UnwrapRef } from "vue";
 import { CheckOutlined, EditOutlined } from "@ant-design/icons-vue";
 import { removeT } from "@blog/utils";
-import {PhotoApis, photoCategoryApi} from "/src/api/photoApis.ts";
+import {PhotoCategory, photoCategoryApi} from "/src/api/photoApis.ts";
 
 interface FormState {
   categoryName: string;
@@ -21,9 +21,9 @@ const getList = () => {
   pageLoading.value = true;
   photoCategoryApi()
       .list(formState)
-      .then((res: RequestResponse<Array<PhotoApis>>) => {
+      .then((res: RequestResponse<Array<PhotoCategory>>) => {
         if (res.status === 200) {
-          dataSource.value = removeT<PhotoApis>(res.data);
+          dataSource.value = removeT<PhotoCategory>(res.data);
         }
       })
       .finally(() => {
@@ -31,7 +31,7 @@ const getList = () => {
       });
 };
 
-const dataSource = ref([]);
+const dataSource = ref<PhotoCategory[]>([]);
 
 const columns = [
   {
@@ -60,13 +60,15 @@ const categoryFormState = reactive<Record<"categoryName", string>>({
   categoryName: "",
 });
 
-const delRecord = (record: PhotoApis) => {
+const delRecord = (record: PhotoCategory) => {
   photoCategoryApi()
       .del(record.id)
       .then((res: RequestResponse<string>) => {
         if (res.status === 200) {
           message.success(res.message);
           getList();
+        }else {
+          message.warning(res.message);
         }
       });
 };
@@ -106,7 +108,7 @@ const handlerCancel = () => {
 };
 
 // 修改
-const editableData: UnwrapRef<Record<number, PhotoApis>> = reactive({});
+const editableData: UnwrapRef<Record<number, PhotoCategory>> = reactive({});
 const save = (key: string) => {
   photoCategoryApi()
       .update(editableData[key])

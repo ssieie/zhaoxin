@@ -1,7 +1,7 @@
 import service from "/src/utils/request.ts";
 import { Category } from "/@/api/category.ts";
 
-export interface PhotoApis extends Category {}
+export interface PhotoCategory extends Category {}
 
 export function photoCategoryApi() {
   return {
@@ -28,6 +28,7 @@ export interface PhotoTvSeries {
   id: number;
   name: string;
   coverImage?: string;
+  previewImage?: string;
   author?: string;
   describe?: string;
   createTime?: string;
@@ -54,6 +55,46 @@ export function photoTvSeriesApi() {
     },
     details(id: string) {
       return service({ url: `/api/photoTvSeries/${id}`, method: "get" });
+    },
+  };
+}
+
+export interface Photo {
+  id: number;
+  photoCategoryId: number;
+  photoCategoryName: string;
+  tvSeriesId: number;
+  tvSeriesName: string;
+  photoUrl: string;
+  previewUrl: string;
+  author: string;
+  like?: string;
+  width: number;
+  height: number;
+  createTime?: string;
+  updateTime?: string;
+}
+
+export function photoApi() {
+  return {
+    list(data: object) {
+      return service({ url: `/api/photo/list`, method: "post", data });
+    },
+    add(data: object) {
+      return service({ url: `/api/photo/add`, method: "post", data });
+    },
+    update(data: object) {
+      return service({
+        url: `/api/photo/update`,
+        method: "post",
+        data,
+      });
+    },
+    del(id: string) {
+      return service({ url: `/api/photo/${id}`, method: "delete" });
+    },
+    details(id: string) {
+      return service({ url: `/api/photo/${id}`, method: "get" });
     },
   };
 }

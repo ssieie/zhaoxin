@@ -1,10 +1,20 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { message } from "ant-design-vue";
-import { PhotoTvSeries, photoTvSeriesApi } from "/@/api/photoApis.ts";
+import {
+  PhotoCategory,
+  PhotoTvSeries,
+  photoApi,
+  Photo,
+} from "/@/api/photoApis.ts";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons-vue";
 import type { UploadProps } from "ant-design-vue";
 import { commonApi, FileUpload } from "/@/api/common/common.ts";
+
+const props = defineProps({
+  categoryList: Array<PhotoCategory>,
+  tvSeriesList: Array<PhotoTvSeries>,
+});
 
 const emits = defineEmits(["success"]);
 
@@ -13,18 +23,22 @@ const show = ref<boolean>(false);
 const confirmLoading = ref<boolean>(false);
 
 const formState = ref({
-  name: "",
-  coverImage: "",
-  previewImage: "",
+  photoCategoryId: "",
+  tvSeriesId: "",
+  photoUrl: "",
+  previewUrl: "",
   author: "Zx",
-  describe: "",
+  width: 0,
+  height: 0,
 });
 
 const handleOk = () => {
   formRef.value.validate().then(() => {
+    if (!formState.value.previewUrl) return message.info('上传图片!')
+    if (!formState.value.width) return message.info('处理图片宽高中...')
     confirmLoading.value = true;
     if (isEdit.value) {
-      photoTvSeriesApi()
+      photoApi()
         .update({
           ...formState.value,
           id: recordId,
@@ -41,7 +55,7 @@ const handleOk = () => {
           confirmLoading.value = false;
         });
     } else {
-      photoTvSeriesApi()
+      photoApi()
         .add(formState.value)
         .then((res: RequestResponse<string>) => {
           if (res.status === 200) {
@@ -60,6 +74,9 @@ const handleOk = () => {
 const handlerCancel = () => {
   isEdit.value = false;
   formRef.value.resetFields();
+
+  formState.value.photoUrl = "";
+  formState.value.previewUrl = "";
 };
 
 const isEdit = ref(false);
@@ -69,15 +86,15 @@ const open = (id?: string) => {
   if (id) {
     recordId = id;
     isEdit.value = true;
-    photoTvSeriesApi()
+    photoApi()
       .details(id)
-      .then((res: RequestResponse<PhotoTvSeries>) => {
+      .then((res: RequestResponse<Photo>) => {
         if (res.status === 200) {
-          formState.value.name = res.data.name;
-          formState.value.coverImage = res.data?.coverImage || "";
-          formState.value.previewImage = res.data?.previewImage || "";
+          formState.value.photoCategoryId = res.data.photoCategoryId;
+          formState.value.tvSeriesId = res.data?.tvSeriesId || "";
+          formState.value.photoUrl = res.data?.photoUrl || "";
+          formState.value.previewUrl = res.data?.previewUrl || "";
           formState.value.author = res.data?.author || "";
-          formState.value.describe = res.data?.describe || "";
         }
       });
   }
@@ -96,6 +113,14 @@ const beforeUpload = (file: UploadProps["fileList"][number]) => {
   }
   return isJpgOrPng && isLt2M;
 };
+const getImgInfo = (url: string) => {
+  const img = document.createElement("img");
+  img.src = url;
+  img.onload = function () {
+    formState.value.width = img.width;
+    formState.value.height = img.height;
+  };
+};
 const customRequest = (v1: any) => {
   if (beforeUpload(v1.file)) {
     loading.value = true;
@@ -105,8 +130,9 @@ const customRequest = (v1: any) => {
       .upload(form)
       .then((res: RequestResponse<FileUpload[]>) => {
         if (res.status === 200) {
-          formState.value.coverImage = res.data[0].url;
-          formState.value.previewImage = res.data[0].compressUrl;
+          getImgInfo(res.data[0].compressUrl);
+          formState.value.photoUrl = res.data[0].url;
+          formState.value.previewUrl = res.data[0].compressUrl;
         } else {
           message.warning(res.message);
         }
@@ -136,11 +162,37 @@ defineExpose({
       <a-row :gutter="24">
         <a-col :span="12">
           <a-form-item
-            label="名称"
-            name="name"
-            :rules="[{ required: true, message: '名称不能为空!' }]"
+            label="分类"
+            name="photoCategoryId"
+            :rules="[{ required: true, message: '分类不能为空!' }]"
           >
-            <a-input placeholder="名称" v-model:value="formState.name" />
+            <a-select
+              placeholder="分类"
+              v-model:value="formState.photoCategoryId"
+            >
+              <a-select-option
+                v-for="i in props.categoryList"
+                :key="i.id"
+                :value="i.id"
+                >{{ i.categoryName }}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-item
+            label="影集"
+            name="tvSeriesId"
+            :rules="[{ required: true, message: '影集不能为空!' }]"
+          >
+            <a-select placeholder="影集" v-model:value="formState.tvSeriesId">
+              <a-select-option
+                v-for="i in props.tvSeriesList"
+                :key="i.id"
+                :value="i.id"
+                >{{ i.name }}
+              </a-select-option>
+            </a-select>
           </a-form-item>
         </a-col>
         <a-col :span="12">
@@ -149,28 +201,22 @@ defineExpose({
           </a-form-item>
         </a-col>
         <a-col :span="24">
-          <a-form-item label="描述" name="describe">
-            <a-textarea
-              v-model:value="formState.describe"
-              placeholder="描述"
-              :auto-size="{ minRows: 2, maxRows: 5 }"
-            />
-          </a-form-item>
-        </a-col>
-        <a-col :span="24">
-          <a-form-item label="封面图" name="coverImage">
+          <a-form-item
+            label="照片"
+            name="photoUrl"
+          >
             <a-upload
               accept=".jpg,.png,.jpeg"
               list-type="picture-card"
-              class="avatar-uploader"
+              class="custom-uploader"
               :show-upload-list="false"
               :customRequest="customRequest"
             >
               <img
-                width="102px"
+                width="190px"
                 style="object-fit: contain"
-                v-if="formState.coverImage"
-                :src="formState.coverImage"
+                v-if="formState.previewUrl"
+                :src="formState.previewUrl"
                 alt="avatar"
               />
               <div v-else>
@@ -186,4 +232,11 @@ defineExpose({
   </a-modal>
 </template>
 
-<style scoped></style>
+<style scoped lang="less">
+:deep(.custom-uploader) {
+  .ant-upload {
+    width: 200px !important;
+    height: 200px !important;
+  }
+}
+</style>
