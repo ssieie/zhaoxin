@@ -15,7 +15,7 @@ interface FormState {
 
 const formState = reactive<FormState>({
   username: "zhaoxin",
-  password: "zxandhy",
+  password: "",
 });
 const btnLoading = ref(false);
 const submit = () => {
