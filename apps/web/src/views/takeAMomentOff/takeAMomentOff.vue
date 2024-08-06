@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import NavigationBar from "/@/components/headerComponents/NavigationBar/navigationBar.vue";
 import {useThemeChange} from "/@/hooks/useThemeChange/useThemeChange.ts";
+import Content from "/@/views/takeAMomentOff/components/contnet.vue";
 
 
 const { headerBg } = useThemeChange();
@@ -14,7 +15,7 @@ const { headerBg } = useThemeChange();
       <navigation-bar :anim="false" />
     </div>
     <div class="m-auto header-w p-b-20px md:p-b-60px m-t-20px md:m-t-60px desc-text-base">
-      建设中
+      <content />
     </div>
   </div>
 </template>

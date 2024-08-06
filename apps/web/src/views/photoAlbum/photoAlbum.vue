@@ -22,7 +22,7 @@ const changeTab = (flag: string) => {
       <navigation-bar :anim="false" />
     </div>
     <div
-      class="h-60px sticky top-85px md:top-115px z-2 m-auto header-w bg-base p-b-20px"
+      class="relative z-99 h-60px sticky top-85px md:top-115px z-2 m-auto header-w bg-base m-b-20px p-b-10px"
     >
       <div
         class="h-full flex items-end gap-26px border-b-solid border-b-1 border-b-#e4e4e7 dark:border-b-#64748b p-b-8px color-#52525b dark:color-#94a3b8 text-16px font-bold switch-animation select-none"

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<style>
+    body {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: #ffffff;
+    }
+</style>
+<body></body>
+<script>
+
+    function getRandColorRange(minColor = 0, maxColor = 255) {
+        if (minColor > maxColor) {
+            minColor = 0
+            maxColor = 255
+        }
+        maxColor++
+        let r = Math.floor(Math.random() * (maxColor - minColor) + minColor)
+        let g = Math.floor(Math.random() * (maxColor - minColor) + minColor)
+        let b = Math.floor(Math.random() * (maxColor - minColor) + minColor)
+        return {
+            cS: `rgba(${r},${g},${b},255)`,
+            r, g, b
+        }
+    }
+
+    function getPointOnLine(x1, y1, x2, y2, d) {
+        const L = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+        const dx = (x2 - x1) / L;
+        const dy = (y2 - y1) / L;
+        const x = x1 + dx * d;
+        const y = y1 + dy * d;
+        return {
+            x, y
+        };
+    }
+
+    class Uhuhuh {
+        constructor(w, h) {
+            this.canvasEl = document.createElement('canvas')
+            this.$ = this.canvasEl.getContext('2d')
+
+            this.wrapW = w
+            this.wrapH = h
+            this.canvasEl.width = w
+            this.canvasEl.height = h
+            this.canvasEl.style = `position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);background-color:rgba(230,230,230,0)`
+            document.body.insertBefore(this.canvasEl, null)
+
+            this.init()
+        }
+
+        init() {
+
+            this.radius = 300
+            this.radiusPow = Math.pow(this.radius, 2)
+
+            this.default()
+
+            document.addEventListener('mousemove', this.mouseListener.bind(this))
+
+            window.addEventListener('resize', this.default.bind(this))
+        }
+
+        mouseListener(e) {
+
+            for (let i = 0, len = this.pointObj.length; i < len; i++) {
+
+                let distance = Math.pow(this.pointObj[i].xByWindows - e.x, 2) + Math.pow(this.pointObj[i].yByWindows - e.y, 2)
+                if (distance < this.radiusPow) {
+                    this.pointObj[i].distance = 1 - distance / this.radiusPow
+                    this.pointObj[i].toLine = true
+                    this.pointObj[i].toPos = {
+                        x: e.x - this.canvasRect.left,
+                        y: e.y - this.canvasRect.top
+                    }
+                } else {
+                    this.pointObj[i].toLine = false
+                }
+            }
+        }
+
+        default() {
+            this.pointObj = []
+            // 四周留白20px
+            let w = Math.floor((this.wrapW - 30) / 30)
+            let h = Math.floor((this.wrapH - 30) / 30)
+
+            this.canvasRect = this.canvasEl.getBoundingClientRect();
+
+            for (let i = 0; i < h; i++) {
+                for (let j = 0; j < w; j++) {
+
+                    let x = (j * 30 + (j * 30 + 30)) / 2 + 15
+                    let y = (i * 30 + (i * 30 + 30)) / 2 + 15
+                    this.pointObj.push({
+                        x,
+                        y,
+                        color: 'blue',
+                        r: 1.5,
+                        xByWindows: this.canvasRect.left + x,
+                        yByWindows: this.canvasRect.top + y,
+
+                        toLine: false,
+                        distance: 0,
+                        lineW: 0,
+                        toPos: null
+                    })
+                }
+
+            }
+        }
+
+
+        renderFn() {
+            window.requestAnimationFrame(this.renderFn.bind(this))
+
+            let renderTime = new Date().getTime()
+            let elapsed = renderTime - this.lastRenderTime
+
+            if (elapsed > this.fpsInterval) {
+                this.lastRenderTime = renderTime - (elapsed % this.fpsInterval)
+
+                this.$.clearRect(0, 0, this.wrapW, this.wrapH)
+                for (const it of this.pointObj) {
+                    if (it.toLine) {
+                        this.$.beginPath()
+                        let lineW = 8 * it.distance
+
+                        // this.$.lineTo(it.x + lineW, it.y + lineW)
+                        let { x, y } = getPointOnLine(it.x, it.y, it.toPos.x, it.toPos.y, lineW)
+                        let tO = getPointOnLine(it.x, it.y, it.toPos.x, it.toPos.y, -lineW)
+                        this.$.moveTo(tO.x, tO.y)
+                        // this.$.lineTo(it.x - sX, it.y - sY)
+                        this.$.lineTo(x, y)
+
+                        this.$.strokeStyle = it.color;
+                        this.$.stroke();
+                    } else {
+                        this.$.beginPath()
+                        this.$.arc(it.x, it.y, 2, 0, 2 * Math.PI);
+                        this.$.fillStyle = it.color;
+                        this.$.fill();
+                    }
+                }
+            }
+        }
+
+        render(fps = 60) {
+            this.lastRenderTime = new Date().getTime()
+            this.fps = fps
+            this.fpsInterval = 1000 / this.fps
+
+            this.$.lineWidth = 2.5;
+            this.$.lineCap = "round"
+
+            this.renderFn()
+
+        }
+    }
+
+
+    const uhuhuh = new Uhuhuh(810, 600);
+    // const uhuhuh = new Uhuhuh(570, 360);
+
+    uhuhuh.render()
+</script>
+</html>

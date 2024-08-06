@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start</title>
+</head>
+<style>
+    html,body{margin: 0;padding: 0;height: 100%;background-color: #fff;overflow: hidden}
+    #canvas{
+        /* background-image: url(./bg.png); */
+        background-size: contain;
+    }
+</style>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+<script>
+    const cav = document.getElementById('canvas')
+    let ctx = cav.getContext('2d')
+
+    let cavW = document.documentElement.clientWidth || document.body.clientWidth
+    let cavH = document.documentElement.clientHeight || document.body.clientHeight
+
+    cav.width = cavW
+    cav.height = cavH
+
+    window.onresize = function () {
+        cavW = document.documentElement.clientWidth || document.body.clientWidth
+        cavH = document.documentElement.clientHeight || document.body.clientHeight
+
+        cav.width = cavW
+        cav.height = cavH
+
+        ctx.fillStyle = '#bae8e8'
+        ctx.strokeStyle = '#e3f6f5'
+    }
+
+    ctx.fillStyle = '#bae8e8'
+    ctx.strokeStyle = '#e3f6f5'
+
+    function Start(x, y, r) {
+        this.x = x
+        this.y = y
+        this.r = r
+
+        this.speedX = Math.round(Math.random() * 1) * Math.pow(-1, Math.round(Math.random()))
+        this.speedY = Math.round(Math.random() * 1) * Math.pow(-1, Math.round(Math.random()))
+    }
+
+    Start.prototype.draw = function () {
+        ctx.beginPath()
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, true)
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    Start.prototype.move = function () {
+        this.x -= this.speedX
+        this.y -= this.speedY
+
+        if (this.x < 0 || this.x > cavW) this.speedX *= -1
+        if (this.y < 0 || this.y > cavH) this.speedY *= -1
+    }
+
+    let startNum
+    if (/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent)) {
+        startNum = 60
+    } else {
+        startNum = 100
+    }
+
+    let start = new Array(startNum).fill('').map(() => new Start(Math.random() * cavW, Math.random() * cavH, 2))
+
+    function drawLine(startX, startY, endX, endY) {
+        ctx.beginPath()
+        ctx.moveTo(startX, startY)
+        ctx.lineTo(endX, endY)
+        ctx.stroke()
+        ctx.closePath()
+    }
+
+    const mouseStart = new Start(0, 0, 2)
+
+    cav.onmousemove = function (e) {
+        mouseStart.x = e.clientX
+        mouseStart.y = e.clientY
+    }
+
+    let fps = 30
+    let fpsInterval = 1000 / fps
+    let last = new Date().getTime()
+
+    function keepRunStart() {
+        let now = new Date().getTime()
+        let elapsed = now - last;
+        if (elapsed > fpsInterval) {
+            last = now - (elapsed % fpsInterval); //校正当前时间
+            // run begin
+            ctx.clearRect(0, 0, cavW, cavH)
+
+            start.forEach((star, index) => {
+                for (let i = index + 1; i < start.length; i++) {
+                    if (Math.abs(star.x - start[i].x) < 50 && Math.abs(star.y - start[i].y) < 50) {
+                        drawLine(star.x, star.y, start[i].x, start[i].y)
+                    }
+                }
+
+                if (Math.abs(mouseStart.x - star.x) < 50 && Math.abs(mouseStart.y - star.y) < 50) {
+                    drawLine(mouseStart.x, mouseStart.y, star.x, star.y)
+                }
+            })
+
+            start.forEach(item => {
+                item.draw()
+                item.move()
+            })
+            // ...
+        }
+
+        requestAnimationFrame(keepRunStart)
+
+    }
+
+    keepRunStart()
+</script>
+</html>

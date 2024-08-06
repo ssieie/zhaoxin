@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>DicePictrue</title>
+</head>
+<style>
+    .flex {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        gap: 15px;
+    }
+</style>
+<body style="background-color: #ffffff">
+<div class="flex">
+      <span>
+        颗粒度：<input
+              type="number"
+              placeholder="越低越清晰"
+              id="myInput"
+              pattern="[1-9]\d*"
+      />
+      </span>
+    <input type="file" id="fileInput" accept="video/*,image/*"/>
+    <video id="videoPlayer" src="/assets/1.mp4" controls
+           style="visibility: hidden;position: absolute;z-index: -99"></video>
+    <div id="wrapper" class="flex"></div>
+</div>
+
+<div style="display: flex; justify-content: center; margin-top: 20px">
+    <canvas id="myCanvas" style="display: none"></canvas>
+    <canvas id="diceCanvas"></canvas>
+</div>
+</body>
+<script>
+
+    const myInput = document.getElementById('myInput')
+    myInput.setAttribute('value', 8)
+    myInput.addEventListener('blur', (e) => {
+        if (+e.target.value < 1) {
+            myInput.value = 8
+        }
+    })
+
+    const fileInput = document.getElementById("fileInput")
+    const videoPlayer = document.getElementById("videoPlayer")
+    const beginBtn = document.getElementById("beginBtn")
+
+    fileInput.addEventListener("change", (event) => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        $.clearRect(0, 0, diceCanvas.width, diceCanvas.height)
+        const files = event.target.files;
+        if (files.length > 0) {
+            let fileType = files[0].type.split('/')[0]
+            document.getElementById('wrapper').innerHTML = ''
+            if (['image'].includes(fileType)) {
+                videoPlayer.style.display = 'none'
+                const img = document.createElement('img')
+                img.src = URL.createObjectURL(files[0])
+                img.onload = function () {
+                    const iObj = img.getBoundingClientRect()
+                    if (iObj.width > 1720 || iObj.height > 880) {
+                        const ratio = Math.min(1720 / iObj.width, 880 / iObj.height);
+                        img.style.width = iObj.width * ratio + 'px'
+                        img.style.height = iObj.height * ratio + 'px'
+                    }
+                    img.style.objectFit = 'contain'
+                    initCanvas(img)
+                }
+                document.getElementById('wrapper').insertBefore(img, null)
+
+
+                const button = document.createElement('button')
+                button.innerText = '生成'
+                button.addEventListener('click', () => {
+                    draw(img)
+                })
+                document.getElementById('wrapper').insertBefore(button, null)
+
+            } else {
+                // videoPlayer.style.display = 'block'
+                const fileURL = URL.createObjectURL(files[0])
+                videoPlayer.setAttribute("src", fileURL)
+                videoPlayer.load()
+                videoPlayer.play()
+                videoPlayer.addEventListener("loadedmetadata", (event) => {
+                    initCanvas(videoPlayer)
+                });
+            }
+        }
+    });
+
+    function initCanvas(el) {
+        const i = el.getBoundingClientRect()
+        canvas.width = i.width
+        canvas.height = i.height
+        diceCanvas.width = i.width
+        diceCanvas.height = i.height
+    }
+
+    const canvas = document.getElementById('myCanvas')
+    const diceCanvas = document.getElementById('diceCanvas')
+    const ctx = canvas.getContext('2d', {willReadFrequently: true})
+    const $ = diceCanvas.getContext('2d')
+
+
+    let aaa
+
+    videoPlayer.addEventListener('play', () => {
+        aaa = window.setInterval(() => {
+            draw(videoPlayer)
+        }, 33)
+    })
+
+    function draw(target) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.drawImage(target, 0, 0, canvas.width, canvas.height)
+
+        $.clearRect(0, 0, diceCanvas.width, diceCanvas.height)
+        if (!isNaN(myInput.value) && +myInput.value > 0 && +myInput.value < canvas.width && +myInput.value < canvas.height) {
+            slicingPictrue(+myInput.value)
+        } else {
+            slicingPictrue()
+        }
+    }
+
+    function slicingPictrue(size = 8) {
+        for (let i = 0; i < canvas.height; i += size) {
+            for (let j = 0; j < canvas.width; j += size) {
+
+                let imgData = ctx.getImageData(j, i, size, size)
+                patchPixels(imgData, j, i, size)
+
+            }
+
+        }
+    }
+
+    function patchPixels(imgData, x, y, size) {
+        let pixels = []
+
+        for (let i = 0, len = imgData.data.byteLength; i < len; i += 4) {
+            pixels.push(rgb2gray({
+                r: imgData.data[i],
+                g: imgData.data[i + 1],
+                b: imgData.data[i + 2],
+                a: imgData.data[i + 3],
+            }))
+        }
+        let diceNum = sixStepGray(mean(pixels));
+
+        fill(x, y, diceNum, size)
+    }
+
+    function fill(x, y, num, size) {
+        // console.log(num);
+        switch (num) {
+            case 1:
+                diceOne(x, y, size)
+                break;
+            case 2:
+                diceTwo(x, y, size)
+                break;
+            case 3:
+                diceThree(x, y, size)
+                break;
+            case 4:
+                diceFour(x, y, size)
+                break;
+            case 5:
+                dicefive(x, y, size)
+                break;
+            case 6:
+                diceSix(x, y, size)
+                break;
+        }
+    }
+
+    function diceOne(x, y, size) {
+        $.fillStyle = "#000000";
+        $.fillRect(x, y, size, size);
+        $.beginPath()
+        $.arc(x + size / 2, y + size / 2, size / 10, 0, 2 * Math.PI);
+        $.fillStyle = "#FFFFFF";
+        $.fill();
+    }
+
+    function diceTwo(x, y, size) {
+        $.fillStyle = "#000000";
+        $.fillRect(x, y, size, size);
+        $.beginPath();
+        $.arc(x + size / 4, y + size / 4, size / 10, 0, 2 * Math.PI);
+        $.arc(x + size * 3 / 4, y + size * 3 / 4, size / 10, 0, 2 * Math.PI);
+        $.fillStyle = "#FFFFFF";
+        $.fill();
+    }
+
+    function diceThree(x, y, size) {
+        $.fillStyle = "#000000";
+        $.fillRect(x, y, size, size);
+        $.beginPath();
+        $.arc(x + size / 4, y + size / 4, size / 10, 0, 2 * Math.PI);
+        $.arc(x + size / 2, y + size / 2, size / 10, 0, 2 * Math.PI);
+        $.arc(x + size * 3 / 4, y + size * 3 / 4, size / 10, 0, 2 * Math.PI);
+        $.fillStyle = "#FFFFFF";
+        $.fill();
+    }
+
+    function diceFour(x, y, size) {
+        $.fillStyle = "#000000";
+        $.fillRect(x, y, size, size);
+        $.beginPath();
+        $.arc(x + size / 4, y + size / 4, size / 10, 0, 2 * Math.PI);
+        $.arc(x + size * 3 / 4, y + size * 3 / 4, size / 10, 0, 2 * Math.PI);
+        $.fillStyle = "#FFFFFF";
+        $.fill();
+        $.beginPath();
+        $.arc(x + size * 3 / 4, y + size / 4, size / 10, 0, 2 * Math.PI);
+        $.arc(x + size / 4, y + size * 3 / 4, size / 10, 0, 2 * Math.PI);
+        $.fillStyle = "#FFFFFF";
+        $.fill();
+    }
+
+    function dicefive(x, y, size) {
+        $.fillStyle = "#000000";
+        $.fillRect(x, y, size, size);
+        $.beginPath();
+        $.arc(x + size / 4, y + size / 4, size / 10, 0, 2 * Math.PI);
+        $.arc(x + size * 3 / 4, y + size * 3 / 4, size / 10, 0, 2 * Math.PI);
+        $.fillStyle = "#FFFFFF";
+        $.fill();
+        $.beginPath();
+        $.arc(x + size / 2, y + size / 2, size / 10, 0, 2 * Math.PI);
+        $.fillStyle = "#FFFFFF";
+        $.fill();
+        $.beginPath();
+        $.arc(x + size * 3 / 4, y + size / 4, size / 10, 0, 2 * Math.PI);
+        $.arc(x + size / 4, y + size * 3 / 4, size / 10, 0, 2 * Math.PI);
+        $.fillStyle = "#FFFFFF";
+        $.fill();
+    }
+
+    function diceSix(x, y, size) {
+        $.fillStyle = "#000000";
+        $.fillRect(x, y, size, size);
+
+        const spacing = size / 4;
+
+        // 绘制左上角的圆点
+        $.beginPath();
+        $.arc(x + spacing, y + spacing, size / 10, 0, 2 * Math.PI);
+        $.fillStyle = "#FFFFFF";
+        $.fill();
+
+        // 绘制左中间的圆点
+        $.beginPath();
+        $.arc(x + spacing, y + size / 2, size / 10, 0, 2 * Math.PI);
+        $.fill();
+
+        // 绘制左下角的圆点
+        $.beginPath();
+        $.arc(x + spacing, y + size - spacing, size / 10, 0, 2 * Math.PI);
+        $.fill();
+
+        // 绘制右上角的圆点
+        $.beginPath();
+        $.arc(x + size - spacing, y + spacing, size / 10, 0, 2 * Math.PI);
+        $.fill();
+
+        // 绘制右中间的圆点
+        $.beginPath();
+        $.arc(x + size - spacing, y + size / 2, size / 10, 0, 2 * Math.PI);
+        $.fill();
+
+        // 绘制右下角的圆点
+        $.beginPath();
+        $.arc(x + size - spacing, y + size - spacing, size / 10, 0, 2 * Math.PI);
+        $.fill();
+    }
+
+    function rgb2gray(pixel) {
+        // 像素转RGBA
+        // let _alpha = (pixel.a >> 24) & 0xFF;
+        // let _red = (pixel.r >> 16) & 0xFF;
+        // let _green = (pixel.g >> 8) & 0xFF;
+        // let _blue = (pixel.b) & 0xFF;
+
+        return Math.round(0.3 * pixel.r + 0.59 * pixel.g + 0.11 * pixel.b);
+    }
+
+    function mean(x) {
+        let m = 0;
+        let len = x.length
+        for (let i = 0; i < len; i++) {
+            m += x[i];
+        }
+        m = m / len;
+        return Math.round(m)
+    }
+
+    function sixStepGray(x) {
+        if (0 <= x && x <= 41) return 1;
+
+        if (41 < x && x <= 83) return 2;
+
+        if (83 < x && x <= 124) return 3;
+
+        if (124 < x && x <= 165) return 4;
+
+        if (165 < x && x <= 206) return 5;
+
+        if (206 < x && x <= 247) return 6;
+
+        else return 6;
+    }
+
+    videoPlayer.addEventListener('pause', () => {
+        window.clearInterval(aaa)
+    })
+
+    videoPlayer.addEventListener('ended', () => {
+        window.clearInterval(aaa)
+    })
+</script>
+</html>

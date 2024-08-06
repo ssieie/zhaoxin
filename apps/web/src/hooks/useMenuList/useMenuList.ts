@@ -20,11 +20,11 @@ const menuList = ref<menuListType>([
     url: "/category",
     isActive: false,
   },
-  {
-    title: "事件时间线",
-    url: "/milestone",
-    isActive: false,
-  },
+  // {
+  //   title: "事件时间线",
+  //   url: "/milestone",
+  //   isActive: false,
+  // },
   {
     title: "乱七倒八",
     url: "/takeAMomentOff",
