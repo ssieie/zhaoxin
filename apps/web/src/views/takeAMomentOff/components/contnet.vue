@@ -10,24 +10,24 @@ const wrapClick = (name: string) => {
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-20px">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-20px">
     <div
-      class="row-span-2 col-span-1 wrap1 card cursor-pointer bg-#f9fafb"
+      class="row-span-14 md:row-span-2 col-span-1 wrap1 card cursor-pointer bg-#f9fafb"
       @click="wrapClick('/1.html')"
     ></div>
     <div
-      class="row-span-2 col-span-1 wrap2 card cursor-pointer bg-#f9fafb"
+      class="row-span-14 md:row-span-2 col-span-1 wrap2 card cursor-pointer bg-#f9fafb"
       @click="wrapClick('/2.html')"
     ></div>
     <div class="row-span-4 col-span-1 h-600px card bg-#f9fafb">
       <news />
     </div>
     <div
-        class="row-span-2 col-span-1 wrap3 card cursor-pointer bg-#f9fafb"
+        class="row-span-14 md:row-span-2 col-span-1 wrap3 card cursor-pointer bg-#f9fafb"
         @click="wrapClick('/3.html')"
     ></div>
     <div
-        class="row-span-2 col-span-1 wrap4 card cursor-pointer bg-#f9fafb"
+        class="row-span-14 md:row-span-2 col-span-1 wrap4 card cursor-pointer bg-#f9fafb"
         @click="wrapClick('/4.html')"
     ></div>
 <!--    <div class="row-span-2 col-span-2 card cursor-pointer bg-#f9fafb">04</div>-->

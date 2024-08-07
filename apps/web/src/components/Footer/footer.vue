@@ -11,7 +11,7 @@
         ❤
         in Zx.
       </div>
-      <div class="text-12px">© 2020-present Zx. All Rights Reserved.</div>
+      <div class="text-12px">© 2024-present Zx. All Rights Reserved.</div>
     </div>
   </div>
 </template>

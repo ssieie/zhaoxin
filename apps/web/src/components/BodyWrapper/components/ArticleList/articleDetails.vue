@@ -19,6 +19,7 @@ import heart7 from "/@/assets/images/heart/heart7.png";
 import heart8 from "/@/assets/images/heart/heart8.png";
 import heart9 from "/@/assets/images/heart/heart9.png";
 import { useThemeChange } from "/@/hooks/useThemeChange/useThemeChange.ts";
+import Comment from "/@/components/BodyWrapper/components/ArticleList/comment/comment.vue";
 
 
 const articleUtils = useArticle();
@@ -178,6 +179,8 @@ const addLike = () => {
           </div>
         </div>
       </div>
+
+      <comment />
     </div>
   </div>
 </template>
