@@ -125,10 +125,11 @@ const postACommentHandler = (val: CommentType) => {
       .then((res: RequestResponse<string>) => {
         if (res.status === 200) {
           notyf.success("发布成功");
+          commentRef.value.reset();
         }
       })
       .finally(() => {
-        commentRef.value.reset();
+        commentRef.value.resetLoading();
       });
   } else {
     notyf.success("文章ID不存在");

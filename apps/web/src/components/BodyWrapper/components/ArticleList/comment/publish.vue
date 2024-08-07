@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import {onMounted, onUnmounted, ref} from "vue";
 import { Notyf } from "notyf";
 import { CommentType } from "/@/types/global";
 import {validateEmail} from "@blog/utils";
@@ -32,9 +32,10 @@ const postAComment = () => {
   loading.value = true
 };
 
+let widgetId:string
 onMounted(() => {
   turnstile.ready(function () {
-    turnstile.render("#myTurnstile", {
+    widgetId = turnstile.render("#myTurnstile", {
       sitekey: "0x4AAAAAAAgpOSYAXQ-LujDf",
       callback: function (token: string) {
         formData.value.token = token;
@@ -43,18 +44,21 @@ onMounted(() => {
   });
 });
 
+onUnmounted(()=>{
+  if (widgetId) turnstile.remove(widgetId)
+})
+
 const reset = () => {
-  loading.value = false
   formData.value.name = ''
   formData.value.email = ''
   formData.value.comment = ''
   formData.value.token = ''
   formData.value.call = true
-
-  turnstile.reset("#myTurnstile")
 }
 const resetLoading = () => {
   loading.value = false
+
+  if (widgetId) turnstile.reset(widgetId)
 }
 
 defineExpose({
