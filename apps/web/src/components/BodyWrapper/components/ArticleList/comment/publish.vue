@@ -1,17 +1,65 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import { onMounted, ref } from "vue";
+import { Notyf } from "notyf";
+import { CommentType } from "/@/types/global";
+import {validateEmail} from "@blog/utils";
 
-const isValid = ref(false)
+const notyf = new Notyf({
+  position: {
+    x: "right",
+    y: "top",
+  },
+});
 
-onMounted(()=>{
+const loading = ref(false);
+const formData = ref<CommentType>({
+  name: "",
+  email: "",
+  comment: "",
+  call: true,
+  token: "",
+});
+
+const emit = defineEmits(["postAComment"]);
+
+const postAComment = () => {
+  if (!formData.value.name) return notyf.error("名称为必填项!");
+  if (!validateEmail(formData.value.email)) return notyf.error("邮箱格式不正确!");
+  if (!formData.value.comment) return notyf.error("评论为必填项!");
+  if (!formData.value.token) return notyf.error("未完成真人验证!");
+
+  emit("postAComment", formData.value);
+  loading.value = true
+};
+
+onMounted(() => {
   turnstile.ready(function () {
-    turnstile.render('#myTurnstile', {
-      sitekey: '0x4AAAAAAAgpOSYAXQ-LujDf',
-      callback: function(token) {
-        console.log(`Challenge Success ${token}`);
+    turnstile.render("#myTurnstile", {
+      sitekey: "0x4AAAAAAAgpOSYAXQ-LujDf",
+      callback: function (token: string) {
+        formData.value.token = token;
       },
     });
   });
+});
+
+const reset = () => {
+  loading.value = false
+  formData.value.name = ''
+  formData.value.email = ''
+  formData.value.comment = ''
+  formData.value.token = ''
+  formData.value.call = true
+
+  turnstile.reset("#myTurnstile")
+}
+const resetLoading = () => {
+  loading.value = false
+}
+
+defineExpose({
+  reset,
+  resetLoading,
 })
 </script>
 
@@ -29,7 +77,12 @@ onMounted(()=>{
       class="comment-flag-wrap flex justify-between gap-30px m-t-30px m-b-20px flex-col md:flex-row"
     >
       <div class="info relative flex-1">
-        <input type="text" required class="bg-base switch-animation" />
+        <input
+          v-model="formData.name"
+          type="text"
+          required
+          class="bg-base switch-animation"
+        />
         <span class="highlight"></span>
         <span class="bar"></span>
         <label class="color-#71717a dark:color-#f1f5f9"
@@ -37,7 +90,12 @@ onMounted(()=>{
         >
       </div>
       <div class="info relative flex-1">
-        <input type="text" required class="bg-base switch-animation" />
+        <input
+          v-model="formData.email"
+          type="text"
+          required
+          class="bg-base switch-animation"
+        />
         <span class="highlight"></span>
         <span class="bar"></span>
         <label class="color-#71717a dark:color-#f1f5f9"
@@ -46,7 +104,13 @@ onMounted(()=>{
       </div>
     </div>
     <div class="flex gap-8px items-center">
-      <input type="checkbox" value="call" id="call" name="call" />
+      <input
+        v-model="formData.call"
+        type="checkbox"
+        value="call"
+        id="call"
+        name="call"
+      />
       <label
         for="call"
         class="select-none cursor-pointer text-14px color-#3f3f46 dark:color-#a1a1aa switch-animation"
@@ -59,6 +123,7 @@ onMounted(()=>{
     >
       <div class="info relative flex-1">
         <textarea
+          v-model="formData.comment"
           type="text"
           rows="4"
           required
@@ -66,13 +131,26 @@ onMounted(()=>{
         />
         <span class="highlight"></span>
         <span class="bar"></span>
-        <label class="color-#71717a dark:color-#f1f5f9" style="top: 8px;left: 10px"
+        <label
+          class="color-#71717a dark:color-#f1f5f9"
+          style="top: 8px; left: 10px"
           >添加评论 <span class="color-red">*</span></label
         >
       </div>
     </div>
     <div id="myTurnstile"></div>
-    <div class="m-t-10px text-14px select-none cursor-pointer bg-#0ea5e9 color-#fff rounded-4px inline-block p-t-6px p-b-6px p-l-14px p-r-14px">发布评论</div>
+    <div
+      @click="postAComment"
+      class="m-t-10px text-14px select-none cursor-pointer bg-#0ea5e9 color-#fff rounded-4px inline-block p-t-6px p-b-6px p-l-14px p-r-14px"
+    >
+      <div class="flex gap-4px items-center">
+        <i
+          v-show="loading"
+          class="i-tabler-loader text-16px font-black color-#fff switch-animation inline-block loading-icon"
+        ></i>
+        <span>发布评论</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -213,6 +291,37 @@ onMounted(()=>{
   to {
     width: 0;
     background: transparent;
+  }
+}
+
+.loading-icon {
+  animation: rotate 2s infinite linear;
+}
+
+@-webkit-keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 </style>
