@@ -43,14 +43,14 @@ const postAComment = () => {
 
 let widgetId: string;
 onMounted(() => {
-  // turnstile.ready(function () {
-  //   widgetId = turnstile.render("#myTurnstile", {
-  //     sitekey: "0x4AAAAAAAgpOSYAXQ-LujDf",
-  //     callback: function (token: string) {
-  //       formData.value.token = token;
-  //     },
-  //   });
-  // });
+  turnstile.ready(function () {
+    widgetId = turnstile.render("#myTurnstile", {
+      sitekey: "0x4AAAAAAAgpOSYAXQ-LujDf",
+      callback: function (token: string) {
+        formData.value.token = token;
+      },
+    });
+  });
 });
 
 onUnmounted(() => {
