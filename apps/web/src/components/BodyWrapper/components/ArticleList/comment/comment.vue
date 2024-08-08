@@ -22,6 +22,8 @@ const commentList = ref<CommentTree[]>([]);
 
 const publishRef = ref();
 
+const commentTotal = ref("");
+
 const reset = () => {
   publishRef.value.reset();
 };
@@ -34,18 +36,18 @@ const load = (id: string) => {
   articleId = id;
   commentApi()
     .get(id)
-    .then((res: RequestResponse<CommentTree[]>) => {
+    .then((res: RequestResponse<Record<"data" | "total", any>>) => {
       if (res.status === 200) {
-        addTreeDataDepthFlag(res.data, "children", 1);
-        console.log(res.data);
-        commentList.value = res.data;
+        addTreeDataDepthFlag(res.data.data, "children", 1);
+        commentTotal.value = res.data.total;
+        commentList.value = res.data.data as CommentTree[];
       }
     });
 };
 
 const refreshComment = () => {
   load(articleId);
-}
+};
 
 const postACommentHandler = (val: CommentType) => {
   if (articleId) {
@@ -81,7 +83,7 @@ defineExpose({
     <div
       class="title text-20px md:text-26px font-bold m-t-10px md:m-t-20px m-b-20px md:m-b-30px"
     >
-      {{ commentList.length }} 评论
+      {{ commentTotal }} 评论
     </div>
 
     <publish
