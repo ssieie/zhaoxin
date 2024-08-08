@@ -6,7 +6,13 @@ export interface CommentRes {
   articleId: number;
   name: string;
   comment: string;
-  create_time: string;
+  createTime: string;
+}
+
+export interface CommentTree {
+  item: CommentRes;
+  depth?: number;
+  children: CommentTree[] | null;
 }
 
 export function commentApi() {

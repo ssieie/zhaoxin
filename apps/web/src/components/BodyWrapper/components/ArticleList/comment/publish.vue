@@ -1,8 +1,16 @@
 <script setup lang="ts">
-import {onMounted, onUnmounted, ref} from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { Notyf } from "notyf";
 import { CommentType } from "/@/types/global";
-import {validateEmail} from "@blog/utils";
+import { validateEmail } from "@blog/utils";
+
+interface Props {
+  replyName?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  replyName: "",
+});
 
 const notyf = new Notyf({
   position: {
@@ -24,61 +32,62 @@ const emit = defineEmits(["postAComment"]);
 
 const postAComment = () => {
   if (!formData.value.name) return notyf.error("名称为必填项!");
-  if (!validateEmail(formData.value.email)) return notyf.error("邮箱格式不正确!");
+  if (!validateEmail(formData.value.email))
+    return notyf.error("邮箱格式不正确!");
   if (!formData.value.comment) return notyf.error("评论为必填项!");
   if (!formData.value.token) return notyf.error("未完成真人验证!");
 
   emit("postAComment", formData.value);
-  loading.value = true
+  loading.value = true;
 };
 
-let widgetId:string
+let widgetId: string;
 onMounted(() => {
-  turnstile.ready(function () {
-    widgetId = turnstile.render("#myTurnstile", {
-      sitekey: "0x4AAAAAAAgpOSYAXQ-LujDf",
-      callback: function (token: string) {
-        formData.value.token = token;
-      },
-    });
-  });
+  // turnstile.ready(function () {
+  //   widgetId = turnstile.render("#myTurnstile", {
+  //     sitekey: "0x4AAAAAAAgpOSYAXQ-LujDf",
+  //     callback: function (token: string) {
+  //       formData.value.token = token;
+  //     },
+  //   });
+  // });
 });
 
-onUnmounted(()=>{
-  if (widgetId) turnstile.remove(widgetId)
-})
+onUnmounted(() => {
+  if (widgetId) turnstile.remove(widgetId);
+});
 
 const reset = () => {
-  formData.value.name = ''
-  formData.value.email = ''
-  formData.value.comment = ''
-  formData.value.token = ''
-  formData.value.call = true
-}
+  formData.value.name = "";
+  formData.value.email = "";
+  formData.value.comment = "";
+  formData.value.token = "";
+  formData.value.call = true;
+};
 const resetLoading = () => {
-  loading.value = false
+  loading.value = false;
 
-  if (widgetId) turnstile.reset(widgetId)
-}
+  if (widgetId) turnstile.reset(widgetId);
+};
 
 defineExpose({
   reset,
   resetLoading,
-})
+});
 </script>
 
 <template>
-  <div>
+  <div class="m-b-30px md:m-b-40px border-solid border-t-1 border-b-#e4e4e7">
     <div
-      class="text-18px md:text-20px font-600 p-t-10px md:p-t-10px p-b-10px md:p-b-20px"
+      class="text-18px md:text-20px font-600 p-t-20px md:p-t-20px p-b-10px md:p-b-20px"
     >
-      留下评论
+      {{props.replyName?`回复给 ${props.replyName}`:'留下评论'}}
     </div>
     <div class="text-14px color-#71717a dark:color-#a1a1aa switch-animation">
       您的电子邮箱地址不会被公开。 必填项已用 * 标注
     </div>
     <div
-      class="comment-flag-wrap flex justify-between gap-30px m-t-30px m-b-20px flex-col md:flex-row"
+      class="comment-flag-wrap flex justify-between gap-30px m-t-20px m-b-20px flex-col md:flex-row"
     >
       <div class="info relative flex-1">
         <input
@@ -130,6 +139,7 @@ defineExpose({
           v-model="formData.comment"
           type="text"
           rows="4"
+          maxlength="500"
           required
           class="bg-base switch-animation"
         />

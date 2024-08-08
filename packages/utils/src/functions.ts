@@ -18,3 +18,13 @@ export function getRandColorRange(minColor = 0, maxColor = 255) {
     r, g, b
   }
 }
+
+export const addTreeDataDepthFlag = (data: any[], children: string, depth: number, depthFlag: string = 'depth') => {
+  data.forEach((item) => {
+    item[depthFlag] = depth
+    if (item.hasOwnProperty(children) && Array.isArray(item[children]) && item[children].length) {
+      addTreeDataDepthFlag(item[children], children, (depth += 1), depthFlag)
+      depth = depth - 1
+    }
+  })
+}

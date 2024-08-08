@@ -20,16 +20,7 @@ import heart8 from "/@/assets/images/heart/heart8.png";
 import heart9 from "/@/assets/images/heart/heart9.png";
 import { useThemeChange } from "/@/hooks/useThemeChange/useThemeChange.ts";
 import Comment from "/@/components/BodyWrapper/components/ArticleList/comment/comment.vue";
-import { CommentType, RequestResponse } from "/@/types/global";
-import { Notyf } from "notyf";
-import {commentApi, CommentRes} from "/@/api/comment.ts";
-
-const notyf = new Notyf({
-  position: {
-    x: "right",
-    y: "top",
-  },
-});
+import { RequestResponse } from "/@/types/global";
 
 const articleUtils = useArticle();
 
@@ -38,7 +29,7 @@ const { headerBg } = useThemeChange();
 const route = useRoute();
 
 const articleInfo = ref<Article>({});
-const commentList = ref<CommentRes[]>([]);
+
 
 onMounted(() => {
   if (route.query.id) {
@@ -48,14 +39,9 @@ onMounted(() => {
       .then((res: RequestResponse<Article>) => {
         if (res.status === 200) {
           articleInfo.value = res.data;
+          commentRef.value.load(res.data.id)
         }
       });
-
-    commentApi().get(route.query.id).then((res: RequestResponse<CommentRes[]>) => {
-      if (res.status === 200) {
-        commentList.value = res.data
-      }
-    });
   }
 });
 
@@ -113,29 +99,6 @@ const addLike = () => {
 };
 
 const commentRef = ref();
-
-const postACommentHandler = (val: CommentType) => {
-  if (route.query.id) {
-    commentApi()
-      .add({
-        ...val,
-        call: val.call ? "1" : "0",
-        articleId: +route.query.id,
-      })
-      .then((res: RequestResponse<string>) => {
-        if (res.status === 200) {
-          notyf.success("发布成功");
-          commentRef.value.reset();
-        }
-      })
-      .finally(() => {
-        commentRef.value.resetLoading();
-      });
-  } else {
-    notyf.success("文章ID不存在");
-    commentRef.value.resetLoading();
-  }
-};
 </script>
 
 <template>
@@ -221,7 +184,7 @@ const postACommentHandler = (val: CommentType) => {
         </div>
       </div>
 
-      <comment ref="commentRef" @postAComment="postACommentHandler" :comment-list="commentList" />
+      <comment ref="commentRef" />
     </div>
   </div>
 </template>
