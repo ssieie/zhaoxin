@@ -35,7 +35,7 @@
 }
 
 .light .custom-header.header {
-    background-image: radial-gradient(transparent 1px, #f8fafc 1px);
+    background-image: radial-gradient(transparent 1px, #ffffff 1px);
     background-size: 4px 4px;
     backdrop-filter: saturate(50%) blur(4px);
 }
