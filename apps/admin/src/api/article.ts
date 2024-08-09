@@ -11,6 +11,21 @@ export interface Article {
   updateTime?: string;
 }
 
+export interface CommentRes {
+  id: number;
+  pId?: number;
+  articleId: number;
+  name: string;
+  comment: string;
+  createTime: string;
+}
+
+export interface CommentTree {
+  item: CommentRes;
+  depth?: number;
+  children: CommentTree[] | null;
+}
+
 export function articleApi() {
   return {
     list(data: object) {
@@ -27,6 +42,12 @@ export function articleApi() {
     },
     del(id: string) {
       return service({ url: `/api/article/${id}`, method: "delete" });
+    },
+    commentList(id: string) {
+      return service({ url: `/api/comment/${id}`, method: "get" });
+    },
+    delComment(id: string) {
+      return service({ url: `/api/comment/${id}`, method: "delete" });
     },
   };
 }

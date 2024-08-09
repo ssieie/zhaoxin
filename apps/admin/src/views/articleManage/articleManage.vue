@@ -4,6 +4,7 @@ import PageBasic from "/@/components/pageBasic/pageBasic.vue";
 import { message } from "ant-design-vue";
 import { removeT } from "@blog/utils";
 import AddEditModal from "/@/views/articleManage/components/addEditModal.vue";
+import CommentManagement from "/@/views/articleManage/components/commentManagement.vue";
 import {Article, articleApi} from "/@/api/article.ts";
 import {Category, categoryApi} from "/@/api/category.ts";
 
@@ -76,7 +77,7 @@ const columns = [
   {
     title: "操作",
     key: "action",
-    width: "180px",
+    width: "260px",
   },
 ];
 
@@ -98,6 +99,11 @@ const add = () => {
 
 const editHandler = (val:Article) => {
   addEditModalRef.value.open(val.id);
+}
+
+const commentManagementRef = ref()
+const commentManagementHandler = (val:Article) => {
+  commentManagementRef.value.open(val.id)
 }
 
 const categoryList = ref<Array<Category>>([]);
@@ -151,6 +157,7 @@ onMounted(() => {
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
           <div class="flex items-center">
+            <a-button type="link" @click="commentManagementHandler(record)">评论管理</a-button>
             <a-button type="link" @click="editHandler(record)">编辑</a-button>
             <a-popconfirm
                 v-if="dataSource.length"
@@ -165,6 +172,7 @@ onMounted(() => {
     </a-table>
   </page-basic>
   <add-edit-modal ref="addEditModalRef" @success="getList" :category-list="categoryList" />
+  <comment-management ref="commentManagementRef" />
 </template>
 
 <style scoped lang="less"></style>
